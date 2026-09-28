@@ -95,13 +95,16 @@ public final class BeamShadowOccluders {
     private static void rebuildBlocks(Level level, BlockPos fixture, Entry e, Vec3 origin, Vec3 dir, float length,
                                       float endRadius, Vec3 bbMin, Vec3 bbMax) {
         double extent = Math.max(bbMax.x - bbMin.x, Math.max(bbMax.y - bbMin.y, bbMax.z - bbMin.z));
-        int cell = Math.max(1, (int) Math.ceil(extent / GRID));
-        // Marge pour que les petits mouvements du faisceau ne forcent pas une reconstruction.
-        double slack = (cell * GRID - extent) * 0.5;
+        // La grille est ancree au multiple de `cell` inferieur a bbMin : ce floor peut descendre
+        // jusqu'a `cell - 1` blocs sous bbMin, il faut donc dimensionner sur GRID - 1 pour que
+        // Entry.contains() reste vrai. Sinon la boite deborde de la grille et tout le faisceau etait
+        // reconstruit a CHAQUE frame : invisible avec un spot etroit, mais catastrophique des que le
+        // cone est large (ex. LED Fountain : demi-angle 45 deg sur 64 blocs -> extent ~195, soit 0 FPS).
+        int cell = Math.max(1, (int) Math.ceil(extent / (GRID - 1.0)));
         Vec3 gridOrigin = new Vec3(
-                Math.floor((bbMin.x - slack) / cell) * cell,
-                Math.floor((bbMin.y - slack) / cell) * cell,
-                Math.floor((bbMin.z - slack) / cell) * cell);
+                Math.floor(bbMin.x / cell) * cell,
+                Math.floor(bbMin.y / cell) * cell,
+                Math.floor(bbMin.z / cell) * cell);
         e.cell = cell;
         e.gridOrigin = gridOrigin;
 
@@ -130,14 +133,39 @@ public final class BeamShadowOccluders {
                     double allowed = Math.max(0.0, z) * tan + cell * 1.5;
                     if (radial > allowed) continue;
 
-                    mp.set(Math.floor(cx), Math.floor(cy), Math.floor(cz));
-                    if (mp.distSqr(fixture) <= 2.0) continue; // la lyre elle-meme
-                    if (!level.isLoaded(mp)) continue;
-                    BlockState state = level.getBlockState(mp);
-                    if (state.isAir()) continue;
-                    boolean solid = state.isSolidRender(level, mp)
-                            || (!state.getCollisionShape(level, mp).isEmpty() && state.getLightBlock(level, mp) > 0);
-                    if (solid) {
+                    // On echantillonne plusieurs points par cellule (au lieu du seul centre) pour
+                    // ne pas rater un mur d'une seule couche tombe sur une colonne non echantillonnee
+                    // (le faisceau/les ombres "traversaient" alors la paroi). Echantillonnage borne :
+                    // cell <= 2 -> les 8 sous-points couvrent exactement tous les blocs de la cellule
+                    // (comportement d'origine avec cell=1) ; cell plus grand -> 2x2x2 au maximum, ce qui
+                    // evite l'explosion de cell^3 requetes (LED Fountain : cell=5 -> 125 requetes/bloc
+                    // au lieu de 8) qui faisait tomber le jeu a 0 FPS.
+                    int bxo = (int) gridOrigin.x + ix * cell;
+                    int byo = (int) gridOrigin.y + iy * cell;
+                    int bzo = (int) gridOrigin.z + iz * cell;
+                    int sub = Math.min(cell, 2);
+                    boolean solidCell = false;
+                    scan:
+                    for (int sz = 0; sz < sub; sz++) {
+                        int bz = bzo + (int) ((sz + 0.5) * cell / sub);
+                        for (int sy = 0; sy < sub; sy++) {
+                            int by = byo + (int) ((sy + 0.5) * cell / sub);
+                            for (int sx = 0; sx < sub; sx++) {
+                                int bx = bxo + (int) ((sx + 0.5) * cell / sub);
+                                mp.set(bx, by, bz);
+                                if (mp.distSqr(fixture) <= 2.0) continue; // la lyre elle-meme
+                                if (!level.isLoaded(mp)) continue;
+                                BlockState state = level.getBlockState(mp);
+                                if (state.isAir()) continue;
+                                if (state.isSolidRender(level, mp)
+                                        || (!state.getCollisionShape(level, mp).isEmpty() && state.getLightBlock(level, mp) > 0)) {
+                                    solidCell = true;
+                                    break scan;
+                                }
+                            }
+                        }
+                    }
+                    if (solidCell) {
                         img.setPixelRGBA(ix, iz * GRID + iy, 0xFFFFFFFF);
                     }
                 }

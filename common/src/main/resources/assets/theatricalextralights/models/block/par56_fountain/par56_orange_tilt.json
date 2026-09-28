@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "par56orange",
 	"textures": {
 		"0": "theatricalextralights:block/moving_vl2c_body",
 		"1": "theatricalextralights:block/par1000_orange",

@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "washlight",
 	"textures": {
 		"0": "theatricalextralights:block/light_fresnel_active_full",
 		"1": "theatricalextralights:block/moving_vl2c_body",

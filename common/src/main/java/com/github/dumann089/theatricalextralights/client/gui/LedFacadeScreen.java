@@ -350,17 +350,22 @@ public class LedFacadeScreen extends Screen {
     // ─── Rendu ────────────────────────────────────────────────────────────────
 
     @Override
-    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        renderBackground(g, mouseX, mouseY, partialTick);
+    public void renderBackground(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+        // Screen.render appelle déjà renderBackground une seule fois : le fond vanilla doit être
+        // peint ici (avant les widgets), sinon il recouvrirait le panneau et assombrirait les textes.
+        super.renderBackground(g, mouseX, mouseY, partialTick);
 
         g.fill(panelLeft - 2, panelTop - 2, panelLeft + panelWidth + 2, panelTop + panelHeight + 2, COLOR_PANEL_BORDER);
         g.fill(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, COLOR_PANEL_BG);
         g.drawCenteredString(font, title, panelLeft + panelWidth / 2, panelTop + PADDING, COLOR_TEXT);
 
         renderCanvas(g);
-        renderControlLabels(g);
+    }
 
+    @Override
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         super.render(g, mouseX, mouseY, partialTick);
+        renderControlLabels(g);
     }
 
     private void renderCanvas(GuiGraphics g) {
@@ -384,7 +389,7 @@ public class LedFacadeScreen extends Screen {
         }
 
         int cellPx = canvasSize / viewSize;
-        if (cellPx >= 6) {
+        if (cellPx >= 3) {
             for (int i = 1; i < viewSize; i++) {
                 int gx = canvasX + i * canvasSize / viewSize;
                 int gy = canvasY + i * canvasSize / viewSize;

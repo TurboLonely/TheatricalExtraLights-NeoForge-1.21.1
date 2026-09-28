@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "beam_7r",
 	"textures": {
 		"1": "theatricalextralights:block/new_texture1"
 	},

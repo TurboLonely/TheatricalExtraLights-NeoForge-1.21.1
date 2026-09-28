@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "parscroller",
 	"textures": {
 		"0": "theatricalextralights:block/moving_vl2c_body",
 		"particle": "theatricalextralights:block/moving_vl2c_body"

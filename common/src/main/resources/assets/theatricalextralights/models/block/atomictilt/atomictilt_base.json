@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "atomictilt",
 	"textures": {
 		"0": "theatricalextralights:block/new_texture1",
 		"particle": "theatricalextralights:block/new_texture1"

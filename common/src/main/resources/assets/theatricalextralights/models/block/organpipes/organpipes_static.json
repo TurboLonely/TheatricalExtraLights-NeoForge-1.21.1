@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "organpipe",
 	"textures": {
 		"0": "theatricalextralights:block/moving_fountain",
 		"particle": "theatricalextralights:block/moving_fountain"

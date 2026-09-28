@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": {"model":  "theatricalextralights:block/scroller/bigscroller/bigscroller_whole"}
+    "": {"model":  "theatricalextralights:block/scrollers/bigscrollers/bigscroller_whole"}
   }
 }

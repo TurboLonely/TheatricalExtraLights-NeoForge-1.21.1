@@ -103,6 +103,23 @@ bool segmentHitsBox(vec3 a, vec3 b, vec3 bmin, vec3 bmax) {
     return tf >= max(tn, 0.0) && tn <= 1.0;
 }
 
+// Comme segmentHitsBox, mais ignore la boite qui contient le point de depart :
+// une entite ne doit pas se faire ombrer par sa propre boite englobante.
+bool boxOccludes(vec3 a, vec3 b, vec3 bmin, vec3 bmax) {
+    vec3 d = b - a;
+    vec3 dd = vec3(
+        abs(d.x) < 1.0e-6 ? 1.0e-6 : d.x,
+        abs(d.y) < 1.0e-6 ? 1.0e-6 : d.y,
+        abs(d.z) < 1.0e-6 ? 1.0e-6 : d.z);
+    vec3 t0 = (bmin - a) / dd;
+    vec3 t1 = (bmax - a) / dd;
+    vec3 tmin = min(t0, t1);
+    vec3 tmax = max(t0, t1);
+    float tn = max(max(tmin.x, tmin.y), tmin.z);
+    float tf = min(min(tmax.x, tmax.y), tmax.z);
+    return tf >= tn && tn > 1.0e-4 && tn <= 1.0;
+}
+
 // startOffset : distance (blocs) a partir du point avant de tester les blocs, pour ne pas
 // se faire ombrer par la surface sur laquelle on est.
 float shadowFactor(vec3 wp, vec3 lightW, float startOffset) {
@@ -110,14 +127,14 @@ float shadowFactor(vec3 wp, vec3 lightW, float startOffset) {
     vec3 toL = lightW - wp;
     float len = length(toL);
     if (len < 0.75) return 1.0;
-    if (OccCount > 0.5 && segmentHitsBox(wp, lightW, OccMin0, OccMax0)) return 0.0;
-    if (OccCount > 1.5 && segmentHitsBox(wp, lightW, OccMin1, OccMax1)) return 0.0;
-    if (OccCount > 2.5 && segmentHitsBox(wp, lightW, OccMin2, OccMax2)) return 0.0;
-    if (OccCount > 3.5 && segmentHitsBox(wp, lightW, OccMin3, OccMax3)) return 0.0;
-    if (OccCount > 4.5 && segmentHitsBox(wp, lightW, OccMin4, OccMax4)) return 0.0;
-    if (OccCount > 5.5 && segmentHitsBox(wp, lightW, OccMin5, OccMax5)) return 0.0;
-    if (OccCount > 6.5 && segmentHitsBox(wp, lightW, OccMin6, OccMax6)) return 0.0;
-    if (OccCount > 7.5 && segmentHitsBox(wp, lightW, OccMin7, OccMax7)) return 0.0;
+    if (OccCount > 0.5 && boxOccludes(wp, lightW, OccMin0, OccMax0)) return 0.0;
+    if (OccCount > 1.5 && boxOccludes(wp, lightW, OccMin1, OccMax1)) return 0.0;
+    if (OccCount > 2.5 && boxOccludes(wp, lightW, OccMin2, OccMax2)) return 0.0;
+    if (OccCount > 3.5 && boxOccludes(wp, lightW, OccMin3, OccMax3)) return 0.0;
+    if (OccCount > 4.5 && boxOccludes(wp, lightW, OccMin4, OccMax4)) return 0.0;
+    if (OccCount > 5.5 && boxOccludes(wp, lightW, OccMin5, OccMax5)) return 0.0;
+    if (OccCount > 6.5 && boxOccludes(wp, lightW, OccMin6, OccMax6)) return 0.0;
+    if (OccCount > 7.5 && boxOccludes(wp, lightW, OccMin7, OccMax7)) return 0.0;
     vec3 dirL = toL / len;
     float start = min(startOffset, len * 0.5);
     float span = len - start - VoxelCell * 0.75;   // on s'arrete avant la cellule de la source

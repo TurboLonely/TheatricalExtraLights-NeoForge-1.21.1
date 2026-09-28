@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "bigpanel3x3_whole",
 	"textures": {
 		"3": "theatricalextralights:block/led_panel_template"
 	},
