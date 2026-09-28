@@ -53,9 +53,9 @@ They are documented here for transparency.
 
 | # | Issue |
 |---|---|
-| 1 | **Beam shadows are approximate.** The occlusion data used by the volumetric beam and the gobo projector is a coarse voxel grid plus up to 8 entity boxes. An entity's shadow can pass **through a wall** and land on a surface behind it (for example on water), and a single entity can show **two shadows at once**. |
-| 2 | **Rendering artifacts at the top of the screen when facing a light.** In fullscreen, looking up towards a fixture that is irradiating the camera can produce visible artifacts along the top edge of the screen. |
-| 3 | **Missing (purple/black) textures in a few places**, for example on some block-breaking particles and a few panel / firework variants. |
+| 1 | **Beam shadows are approximate — seen on the LED Fountain.** The occlusion data used by the volumetric beam and the gobo projector is a coarse voxel grid plus up to 8 entity boxes. An entity's shadow can pass **through a wall** and land on a surface behind it (for example on water), and a single entity can show **two shadows at once**. So far this has only been observed with the **LED Fountain**; no other fixture is currently affected. |
+| 2 | **Rendering artifacts at the top of the screen when facing a light — seen on the LED Fountain.** In fullscreen, looking up towards the **LED Fountain** while it is irradiating the camera can produce visible artifacts along the top edge of the screen. No other fixture is currently affected. |
+| 3 | **Missing (purple/black) textures in a few places — seen on the LED Fountain**, for example on its block-breaking particles. No other fixture is currently affected. |
 
 Bug reports and pull requests for these are welcome, but they are **not** being worked on right now.
 
@@ -176,11 +176,13 @@ retained, as required by the license. If you redistribute this or a modified ver
 **已知问题（尚未解决）：** 本移植版并非无 Bug 版本，下列问题目前**依旧存在**，因个人能力原因
 暂时无法解决，如实说明如下：
 
-1. **光束影子为近似计算**：体积光束与投影光斑使用的遮挡数据，是粗略的体素栅格加最多 8 个实体
-   包围盒。实体的影子会**穿墙**落到墙后的表面（例如水面上），并且同一个实体可能出现**两个影子**。
-2. **正对灯光时屏幕顶部出现渲染错误**：全屏模式下朝正在照射自己的灯具方向抬头看，屏幕上方会
-   出现可见的渲染错误。
-3. **个别位置材质缺失（紫黑格子）**：例如部分方块破坏粒子、部分面板 / 烟花变体。
+1. **光束影子为近似计算（特指 LED 喷泉）**：体积光束与投影光斑使用的遮挡数据，是粗略的体素栅格加最多
+   8 个实体包围盒。实体的影子会**穿墙**落到墙后的表面（例如水面上），并且同一个实体可能出现**两个影子**。
+   目前只在 **LED 喷泉** 上观察到该现象，其他灯具暂无此情况。
+2. **正对灯光时屏幕顶部出现渲染错误（特指 LED 喷泉）**：全屏模式下朝正在照射自己的 **LED 喷泉**
+   方向抬头看，屏幕上方会出现可见的渲染错误。其他灯具暂无此情况。
+3. **个别位置材质缺失（紫黑格子，特指 LED 喷泉）**：目前只在 **LED 喷泉** 上发现，例如其方块破坏
+   粒子。其他灯具暂无此情况。
 
 欢迎通过 Issue 或 PR 协助改进，但以上问题**目前暂不继续处理**。
 
