@@ -11,7 +11,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
@@ -408,7 +408,7 @@ public class CustomGoboScreen extends TelScaledScreen {
         }
 
         if (selectedFile.isEmpty()) {
-            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+            RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), Minecraft.getInstance().level.registryAccess());
             buf.writeUtf(library.name());
             buf.writeInt(selectedSlot);
             buf.writeUtf("");
@@ -431,7 +431,7 @@ public class CustomGoboScreen extends TelScaledScreen {
             byte[] chunk = new byte[length];
             System.arraycopy(imageData, start, chunk, 0, length);
 
-            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+            RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), Minecraft.getInstance().level.registryAccess());
             buf.writeUtf(library.name());
             buf.writeInt(selectedSlot);
             buf.writeUtf(selectedFile);

@@ -56,6 +56,6 @@ public final class StrobeVisualEffects {
             float y,
             float z
     ) {
-        consumer.vertex(matrix, x, y, z).color(r, g, b, a).endVertex();
+        consumer.addVertex(matrix, x, y, z).setColor(r, g, b, a);
     }
 }

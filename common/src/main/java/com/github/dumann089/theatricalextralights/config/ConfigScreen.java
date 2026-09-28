@@ -166,13 +166,14 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        double delta = scrollY;
         if (maxScroll > 0 && mouseX < PANEL_WIDTH) {
             scrollAmount -= delta * 20; // Scroll speed
             scrollAmount = Math.max(0, Math.min(scrollAmount, maxScroll));
             updateWidgetPositions();
         }
-        return super.mouseScrolled(mouseX, mouseY, delta);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     @Override

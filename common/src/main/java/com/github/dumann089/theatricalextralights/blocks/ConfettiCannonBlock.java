@@ -10,7 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -31,6 +31,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.ItemStack;
 
 public class ConfettiCannonBlock extends ExtraLightsLightBlock {
     public ConfettiCannonBlock() {
@@ -93,8 +94,8 @@ public class ConfettiCannonBlock extends ExtraLightsLightBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (super.use(state, level, pos, player, hand, hit) == InteractionResult.PASS) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (super.useItemOn(stack, state, level, pos, player, hand, hit) == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
             if (level.isClientSide) {
                 if (player.isCrouching()) {
                     if (TheatricalClient.DEBUG_BLOCKS.contains(pos)) {
@@ -102,13 +103,13 @@ public class ConfettiCannonBlock extends ExtraLightsLightBlock {
                     } else {
                         TheatricalClient.DEBUG_BLOCKS.add(pos);
                     }
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
             } else {
                 new com.github.dumann089.theatricalextralights.net.OpenExtraLightsScreenPacket(pos, com.github.dumann089.theatricalextralights.TheatricalExtraLightsScreens.PYRO).sendTo((ServerPlayer) player);
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

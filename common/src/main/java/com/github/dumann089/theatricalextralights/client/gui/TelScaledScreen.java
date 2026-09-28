@@ -61,12 +61,12 @@ public abstract class TelScaledScreen extends Screen {
 
     /** Molette en coordonnees virtuelles ; par defaut transmet aux widgets. */
     protected boolean scaledMouseScrolled(double mouseX, double mouseY, double delta) {
-        return super.mouseScrolled(mouseX, mouseY, delta);
+        return super.mouseScrolled(mouseX, mouseY, 0.0, delta);
     }
 
     @Override
     public final void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        renderBackground(g);
+        renderBackground(g, mouseX, mouseY, partialTick);
         if (uiScale == 1.0f) {
             renderScaled(g, mouseX, mouseY, partialTick);
             return;
@@ -101,8 +101,8 @@ public abstract class TelScaledScreen extends Screen {
     }
 
     @Override
-    public final boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        return scaledMouseScrolled(mouseX / uiScale, mouseY / uiScale, delta);
+    public final boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        return scaledMouseScrolled(mouseX / uiScale, mouseY / uiScale, scrollY);
     }
 
     @Override

@@ -143,10 +143,10 @@ public class DWTPanelRenderer extends ExtraLightsRenderer<DWTPanelBlockEntity> {
     }
 
     private static void quad(VertexConsumer vc, Matrix4f m, float x0, float y0, float x1, float y1, float z, int r, int g, int b, int a) {
-        vc.vertex(m, x0, y0, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x1, y0, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x1, y1, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x0, y1, z).color(r, g, b, a).endVertex();
+        vc.addVertex(m, x0, y0, z).setColor(r, g, b, a);
+        vc.addVertex(m, x1, y0, z).setColor(r, g, b, a);
+        vc.addVertex(m, x1, y1, z).setColor(r, g, b, a);
+        vc.addVertex(m, x0, y1, z).setColor(r, g, b, a);
     }
 
     @Override
@@ -256,7 +256,7 @@ public class DWTPanelRenderer extends ExtraLightsRenderer<DWTPanelBlockEntity> {
     @Override
     protected void addVertex(VertexConsumer builder, Matrix4f m, Matrix3f nm, int r, int g, int b, int a, float x, float y, float z) {
         if (Beam2DRenderTypes.isShadersActive()) {
-            builder.vertex(m, x, y, z).color(r, g, b, a).uv(0f, 0f).uv2(LightTexture.FULL_BRIGHT).endVertex();
+            builder.addVertex(m, x, y, z).setColor(r, g, b, a).setUv(0f, 0f).setLight(LightTexture.FULL_BRIGHT);
         } else {
             super.addVertex(builder, m, nm, r, g, b, a, x, y, z);
         }

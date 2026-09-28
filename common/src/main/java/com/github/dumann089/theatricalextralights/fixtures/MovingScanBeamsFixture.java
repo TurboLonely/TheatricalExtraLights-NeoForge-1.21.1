@@ -30,9 +30,9 @@ public class MovingScanBeamsFixture extends Fixture {
             ProfileHeadChannels.PERSONALITY_PROFILE
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_scan/moving_scan_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.25F, .46875F};
     private final float[] panRotation = new float[]{0.5F, 1.375F, .59375F};

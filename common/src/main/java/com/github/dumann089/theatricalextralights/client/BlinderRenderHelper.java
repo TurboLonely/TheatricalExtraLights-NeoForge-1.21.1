@@ -67,6 +67,6 @@ public final class BlinderRenderHelper {
             float y,
             float z
     ) {
-        builder.vertex(matrix, x, y, z).color(r, g, b, a).endVertex();
+        builder.addVertex(matrix, x, y, z).setColor(r, g, b, a);
     }
 }

@@ -7,7 +7,7 @@ import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.fabricmc.api.EnvType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public class OpenExtraLightsScreenPacket extends BaseS2CMessage {
 
@@ -19,7 +19,7 @@ public class OpenExtraLightsScreenPacket extends BaseS2CMessage {
         this.screen = screen;
     }
 
-    public OpenExtraLightsScreenPacket(FriendlyByteBuf buf) {
+    public OpenExtraLightsScreenPacket(RegistryFriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
         this.screen = buf.readEnum(TheatricalExtraLightsScreens.class);
     }
@@ -30,7 +30,7 @@ public class OpenExtraLightsScreenPacket extends BaseS2CMessage {
     }
 
     @Override
-    public void write(FriendlyByteBuf buf) {
+    public void write(RegistryFriendlyByteBuf buf) {
         buf.writeBlockPos(pos);
         buf.writeEnum(screen);
     }

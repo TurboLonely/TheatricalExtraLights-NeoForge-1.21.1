@@ -1,4 +1,6 @@
 package com.github.dumann089.theatricalextralights.blocks;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.CustomData;
 
 import com.github.dumann089.theatricalextralights.TheatricalExtraLights;
 import com.github.dumann089.theatricalextralights.TheatricalExtraLightsScreens;
@@ -12,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.LevelReader;
 
 public class WaterJetCentralBlock extends ExtraLightsLightBlock {
 
@@ -56,11 +59,11 @@ public class WaterJetCentralBlock extends ExtraLightsLightBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
 
         if (level.getBlockEntity(pos) instanceof WaterJetCentralBlockEntity be) {
-            stack.getOrCreateTag().putFloat("JetHeight", be.getJetHeight());
+            CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putFloat("JetHeight", be.getJetHeight()));
         }
 
         return stack;
@@ -70,9 +73,10 @@ public class WaterJetCentralBlock extends ExtraLightsLightBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
 
-        if (stack.hasTag() && level.getBlockEntity(pos) instanceof WaterJetCentralBlockEntity be) {
-            if (stack.getTag().contains("JetHeight")) {
-                be.setJetHeight(stack.getTag().getFloat("JetHeight"));
+        if (level.getBlockEntity(pos) instanceof WaterJetCentralBlockEntity be) {
+            CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+            if (data.contains("JetHeight")) {
+                be.setJetHeight(data.copyTag().getFloat("JetHeight"));
             }
         }
     }
@@ -134,10 +138,10 @@ public class WaterJetCentralBlock extends ExtraLightsLightBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (super.use(state, level, pos, player, hand, hit) == InteractionResult.PASS) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (super.useItemOn(stack, state, level, pos, player, hand, hit) == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
             if (player.isCrouching()) {
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
             if (!level.isClientSide) {
                 new OpenExtraLightsScreenPacket(pos, TheatricalExtraLightsScreens.WATER_MANUAL)
@@ -145,7 +149,7 @@ public class WaterJetCentralBlock extends ExtraLightsLightBlock {
             }
         }
 
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
         @Override

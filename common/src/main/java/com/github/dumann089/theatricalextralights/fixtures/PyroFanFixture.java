@@ -20,9 +20,9 @@ public class PyroFanFixture extends Fixture {
     public static final int PERSONALITY_10CH = 1;
 
     private static final ResourceLocation STATIC_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/firework_gold_comet_static");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/firework_gold_comet_static");
     private static final ResourceLocation PAN_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/firework_gold_comet_pan");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/firework_gold_comet_pan");
     private static final List<DMXPersonality> PERSONALITIES = buildPersonalities();
     private final float[] tiltPivot = new float[]{0.5f, 0.25f, 0.5f};
 

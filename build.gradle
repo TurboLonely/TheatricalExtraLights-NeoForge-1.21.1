@@ -1,7 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
-    id 'io.github.juuxel.loom-quiltflower' version '1.10.0' apply false
+    id "dev.architectury.loom" version "1.11-SNAPSHOT" apply false
 }
 
 architectury {
@@ -9,33 +8,17 @@ architectury {
 }
 
 subprojects {
-    apply plugin: "dev.architectury.loom"
-    apply plugin: "io.github.juuxel.loom-quiltflower"
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
+    apply plugin: "maven-publish"
+
+    base {
+        archivesName = "$rootProject.archives_base_name-$project.name"
+    }
 
     loom {
         silentMojangMappingsLicense()
     }
-
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        // The following line declares the mojmap mappings, you may use other mappings as well
-        mappings loom.layered() {
-            officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}@zip")
-        }
-        // The following line declares the yarn mappings you may select this one as well.
-        // mappings "net.fabricmc:yarn:1.20.1+build.10:v2"
-    }
-}
-
-allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    archivesBaseName = rootProject.archives_base_name
-    version = "${rootProject.mod_version}-mc${rootProject.minecraft_version}"
-    group = rootProject.maven_group
 
     repositories {
         maven {
@@ -46,36 +29,33 @@ allprojects {
             name = 'Rushmead'
             url = 'https://mvn.imabad.dev/repository/maven-releases/'
         }
-        // For Shimmer
-        maven {
-            url "https://maven.firstdarkdev.xyz/snapshots"
-        }
-        maven {
-            name = 'BlameJared'
-            url = 'https://maven.blamejared.com'
-        }
-        maven {
-            name = 'CreateMod'
-            url = 'https://maven.createmod.net/'
-        }
         maven { url 'https://jitpack.io' }
-        // ModMenu (bouton de reglages dans la liste des mods, cote Fabric)
-        maven { url 'https://maven.terraformersmc.com/releases' }
         mavenCentral()
         mavenLocal()
-        // Add repositories to retrieve artifacts from in here.
-        // You should only use this when depending on other mods because
-        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-        // for more information about repositories.
     }
 
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.release = 17
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = 21
+        it.options.encoding = "UTF-8"
     }
 
     java {
         withSourcesJar()
+
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}@zip")
+        }
+    }
+}
+
+allprojects {
+    version = "${rootProject.mod_version}-mc${rootProject.minecraft_version}"
+    group = rootProject.maven_group
 }

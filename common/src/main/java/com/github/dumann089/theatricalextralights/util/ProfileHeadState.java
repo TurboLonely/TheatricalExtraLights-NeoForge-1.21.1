@@ -30,10 +30,10 @@ public final class ProfileHeadState {
 
     /** Textures de la roue d'animation, dans l'ordre des plages DMX (16-75, 76-135, 136-195, 196-255). */
     public static final net.minecraft.resources.ResourceLocation[] ANIMATION_TEXTURES = {
-            new net.minecraft.resources.ResourceLocation("theatricalextralights", "textures/animation/flames.png"),
-            new net.minecraft.resources.ResourceLocation("theatricalextralights", "textures/animation/water.png"),
-            new net.minecraft.resources.ResourceLocation("theatricalextralights", "textures/animation/clouds.png"),
-            new net.minecraft.resources.ResourceLocation("theatricalextralights", "textures/animation/breakup.png"),
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/animation/flames.png"),
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/animation/water.png"),
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/animation/clouds.png"),
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/animation/breakup.png"),
     };
     public static final String[] ANIMATION_NAMES = { "flames", "water", "clouds", "breakup" };
 

@@ -1,5 +1,6 @@
 package com.github.dumann089.theatricalextralights.blocks.rig;
 
+import com.mojang.serialization.MapCodec;
 import dev.imabad.theatrical.blocks.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,6 +21,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class TrussCornerBlock extends DirectionalBlock {
 
+    private static final MapCodec<TrussCornerBlock> CODEC = simpleCodec(properties -> new TrussCornerBlock());
+
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     private final VoxelShape Z_BOX = Shapes.create(new AABB(0.1875, 0.0, 0, 0.8125, 1.0, 1));
@@ -36,6 +39,11 @@ public class TrussCornerBlock extends DirectionalBlock {
                 .sound(SoundType.METAL));
 
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override

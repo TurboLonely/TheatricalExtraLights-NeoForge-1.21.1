@@ -24,9 +24,9 @@ public class WaltzCurtainFixture extends Fixture {
 
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzescurtain_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzescurtain_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzes_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzescurtain_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzescurtain_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/waltzesjet/waltzes_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.858F, 0.51F};
     private final float[] panRotation = new float[]{0.5F, 0.988F, .5F};

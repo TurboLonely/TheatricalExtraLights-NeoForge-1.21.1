@@ -25,9 +25,9 @@ public class horizontalscrollerFixture extends Fixture {
 
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_whole");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_static");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_whole");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_static");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/miniscrollers/scrollerhorizontal_static");
 
     private final float[] tiltRotation = new float[]{0.0F, 0.531F, 0.731F};
     private final float[] panRotation = new float[]{0.0F, 0.5F, 0.731F};

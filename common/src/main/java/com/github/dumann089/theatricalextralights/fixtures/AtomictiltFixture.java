@@ -34,9 +34,9 @@ public class AtomictiltFixture extends Fixture {
                     .addSlot(SharedSlots.TILT)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_tilt");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_base");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_base");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_tilt");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_base");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomictilt/atomictilt_base");
 
 
     private final float[] tiltRotation = new float[]{0.503F, 0.567F, .462F};

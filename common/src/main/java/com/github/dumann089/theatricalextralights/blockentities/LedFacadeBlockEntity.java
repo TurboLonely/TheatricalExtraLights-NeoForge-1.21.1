@@ -5,8 +5,9 @@ import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import com.github.dumann089.theatricalextralights.net.LedFacadeFramesPacket;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.blockentities.light.BaseLightBlockEntity;
-import dev.imabad.theatrical.dmx.DMXNetwork;
-import dev.imabad.theatrical.dmx.DMXNetworkData;
+import dev.imabad.theatrical.networks.TheatricalNetwork;
+import dev.imabad.theatrical.networks.TheatricalNetworkData;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -264,11 +265,11 @@ public class LedFacadeBlockEntity extends ExtraLightsLightBlockEntity {
 
     // ─── Sous-consommateurs (serveur) ──────────────────────────────────────────
 
-    private DMXNetwork network() {
+    private TheatricalNetwork network() {
         if (level == null || level.getServer() == null) {
             return null;
         }
-        DMXNetworkData data = DMXNetworkData.getInstance(level.getServer().overworld());
+        TheatricalNetworkData data = TheatricalNetworkData.getInstance(level.getServer().overworld());
         return data == null ? null : data.getNetwork(getNetworkId());
     }
 
@@ -279,22 +280,22 @@ public class LedFacadeBlockEntity extends ExtraLightsLightBlockEntity {
         removeAllSubConsumers();
         int span = Math.min(universesSpanned(), maxUniverses());
         ensureFrameCapacity(span);
-        DMXNetwork net = network();
+        TheatricalNetwork net = network();
         if (net == null) {
             return;
         }
         for (int i = 1; i < span; i++) {
             LedFacadeUniverseConsumer sub = new LedFacadeUniverseConsumer(this, i);
             subConsumers.add(sub);
-            net.addConsumer(getBlockPos(), sub);
+            net.dmx().addConsumer(getBlockPos(), sub);
         }
     }
 
     private void removeAllSubConsumers() {
-        DMXNetwork net = network();
+        TheatricalNetwork net = network();
         if (net != null) {
             for (LedFacadeUniverseConsumer sub : subConsumers) {
-                net.removeConsumer(sub, getBlockPos());
+                net.dmx().removeConsumer(sub, getBlockPos());
             }
         }
         subConsumers.clear();
@@ -457,16 +458,16 @@ public class LedFacadeBlockEntity extends ExtraLightsLightBlockEntity {
     // ─── NBT ────────────────────────────────────────────────────────────────
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("resolution", resolution);
         tag.putInt("smoothing", smoothing);
         tag.putByteArray("activePixels", activePixels.toByteArray());
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("resolution") && isValidResolution(tag.getInt("resolution"))) {
             resolution = tag.getInt("resolution");
         }
@@ -485,8 +486,8 @@ public class LedFacadeBlockEntity extends ExtraLightsLightBlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("resolution", resolution);
         tag.putInt("smoothing", smoothing);
         tag.putByteArray("activePixels", activePixels.toByteArray());

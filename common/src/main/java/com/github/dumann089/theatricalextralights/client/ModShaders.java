@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import dev.imabad.theatrical.compat.ModCompat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -177,7 +176,7 @@ public class ModShaders {
 
             return RenderType.create(
                     "beam_raymarch",
-                    DefaultVertexFormat.POSITION_COLOR_TEX,
+                    DefaultVertexFormat.POSITION_TEX_COLOR,
                     VertexFormat.Mode.QUADS,
                     65536,
                     false,
@@ -188,7 +187,7 @@ public class ModShaders {
     }
 
     public static RenderType getGoboRenderType(ResourceLocation texture) {
-        if (ModCompat.SHIMMER || isIrisShaderpackActive()) {
+        if (isIrisShaderpackActive()) {
             return getGoboFallbackRenderType(texture);
         }
 
@@ -212,7 +211,7 @@ public class ModShaders {
 
             return RenderType.create(
                     "gobo_projector",
-                    DefaultVertexFormat.POSITION_COLOR_TEX,
+                    DefaultVertexFormat.POSITION_TEX_COLOR,
                     VertexFormat.Mode.QUADS,
                     65536,
                     false,
@@ -252,7 +251,7 @@ public class ModShaders {
 
             return RenderType.create(
                     "gobo_projector_fallback",
-                    DefaultVertexFormat.POSITION_COLOR_TEX,
+                    DefaultVertexFormat.POSITION_TEX_COLOR,
                     VertexFormat.Mode.QUADS,
                     256,
                     false,
@@ -263,7 +262,7 @@ public class ModShaders {
     }
 
     public static RenderType getVolumetricRenderType(ResourceLocation texture) {
-        if (ModCompat.SHIMMER || isIrisShaderpackActive()) {
+        if (isIrisShaderpackActive()) {
             return getVolumetricFallbackRenderType(texture);
         }
 
@@ -294,7 +293,7 @@ public class ModShaders {
 
             return RenderType.create(
                     "volumetric_beam",
-                    DefaultVertexFormat.POSITION_COLOR_TEX,
+                    DefaultVertexFormat.POSITION_TEX_COLOR,
                     VertexFormat.Mode.QUADS,
                     65536,
                     false,
@@ -334,7 +333,7 @@ public class ModShaders {
 
             return RenderType.create(
                     "volumetric_beam_fallback",
-                    DefaultVertexFormat.POSITION_COLOR_TEX,
+                    DefaultVertexFormat.POSITION_TEX_COLOR,
                     VertexFormat.Mode.QUADS,
                     65536,
                     false,

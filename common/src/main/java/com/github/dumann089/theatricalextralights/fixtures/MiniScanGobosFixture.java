@@ -30,9 +30,9 @@ public class MiniScanGobosFixture extends Fixture {
             ProfileHeadChannels.PERSONALITY_PROFILE
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniscan/miniscan_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.726F, 0.453F};
     private final float[] panRotation = new float[]{0.5F, 0.863F, 0.453F};

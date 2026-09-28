@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity;
 
 public class ConfettiCannonModel extends EntityModel<Entity> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(new ResourceLocation(TheatricalExtraLights.MOD_ID, "confetti_cannon"), "main");
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "confetti_cannon"), "main");
 
     private final ModelPart hexadecagonRing;
     private final ModelPart hexadecagonBarrel;
@@ -110,9 +110,9 @@ public class ConfettiCannonModel extends EntityModel<Entity> {
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight,
-                               int packedOverlay, float red, float green, float blue, float alpha) {
-        hexadecagonRing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        hexadecagonBarrel.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        bbMain.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+                               int packedOverlay, int color) {
+        hexadecagonRing.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        hexadecagonBarrel.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        bbMain.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 }

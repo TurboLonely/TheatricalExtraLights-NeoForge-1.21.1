@@ -21,9 +21,9 @@ public class Flow2JetFixture extends Fixture {
     );
 
     private static final ResourceLocation WHOLE_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flow2jet/flow2jet_whole");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flow2jet/flow2jet_whole");
     private static final ResourceLocation STATIC_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flow2jet/flow2jet_static");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flow2jet/flow2jet_static");
 
     /** Pivot rotation — machine entière (pas la buse seule). */
     private final float[] rotationPivot = new float[]{0.5F, 11f / 16f, 0.5F};

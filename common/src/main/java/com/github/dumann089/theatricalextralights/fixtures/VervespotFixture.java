@@ -43,9 +43,9 @@ public class VervespotFixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)  // Prism Rotation
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vervespot/vervespot_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.225F, 0.45F};
     private final float[] panRotation = new float[]{0.5F, 0.40F, .471F};

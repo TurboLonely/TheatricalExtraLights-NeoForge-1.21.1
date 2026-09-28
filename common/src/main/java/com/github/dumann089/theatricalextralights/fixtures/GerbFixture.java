@@ -24,8 +24,8 @@ public class GerbFixture extends Fixture {
     private final float[] pivot = new float[]{0.5f, 0.25f, 0.5f};
 
     public GerbFixture() {
-        this.staticModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/gerb_gold_static");
-        this.panModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/gerb_gold_static");
+        this.staticModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/gerb_gold_static");
+        this.panModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/gerb_gold_static");
     }
 
     @Override

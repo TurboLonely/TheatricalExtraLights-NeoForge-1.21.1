@@ -45,7 +45,7 @@ public class LedFacadeRenderer extends ExtraLightsRenderer<LedFacadeBlockEntity>
     private static final int OFF_GREY = 0xFF2A2A2A; // gris LED éteint (natif ABGR, symétrique)
     private static final int MAX_VRES = 256;        // borne la texture virtuelle
     private static final ResourceLocation GEAR_TEXTURE =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "textures/gui/led_facade_gear.png");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "textures/gui/led_facade_gear.png");
 
     private final Map<BlockPos, Panel> panels = new HashMap<>();
     private long frame;
@@ -97,11 +97,11 @@ public class LedFacadeRenderer extends ExtraLightsRenderer<LedFacadeBlockEntity>
      */
     private void vertex(VertexConsumer vc, Matrix4f m, int light, boolean entityFormat, float nx, float nz,
                         float x, float y, float z, float u, float v) {
-        var vb = vc.vertex(m, x, y, z).color(255, 255, 255, 255).uv(u, v);
+        var vb = vc.addVertex(m, x, y, z).setColor(255, 255, 255, 255).setUv(u, v);
         if (entityFormat) {
-            vb.overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(nx, 0f, nz).endVertex();
+            vb.setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, 0f, nz);
         } else {
-            vb.uv2(light).endVertex();
+            vb.setLight(light);
         }
     }
 
@@ -161,8 +161,8 @@ public class LedFacadeRenderer extends ExtraLightsRenderer<LedFacadeBlockEntity>
             panel.resolution = res;
             panel.vRes = vRes;
             String key = "led_facade/" + Long.toHexString(pos.asLong());
-            panel.offLocation = new ResourceLocation(TheatricalExtraLights.MOD_ID, key + "_off");
-            panel.litLocation = new ResourceLocation(TheatricalExtraLights.MOD_ID, key + "_lit");
+            panel.offLocation = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, key + "_off");
+            panel.litLocation = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, key + "_lit");
             panel.offTexture = new DynamicTexture(vRes, vRes, false);
             panel.litTexture = new DynamicTexture(vRes, vRes, false);
             Minecraft.getInstance().getTextureManager().register(panel.offLocation, panel.offTexture);

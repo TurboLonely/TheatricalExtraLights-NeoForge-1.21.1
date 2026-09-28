@@ -4,6 +4,7 @@ import com.github.dumann089.theatricalextralights.blockentities.interfaces.HasJe
 import com.github.dumann089.theatricalextralights.blockentities.interfaces.HasJetThickness;
 import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import dev.imabad.theatrical.api.Fixture;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -186,24 +187,24 @@ public class WaltzCurtainBlockEntity extends ExtraLightsLightBlockEntity
     // -------------------
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putFloat("JetHeight", jetHeight);
         tag.putFloat("JetThickness", jetThickness);
         tag.putInt("SwingChannel", swingChannel); // Guardamos estado del swing
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("JetHeight")) jetHeight = tag.getFloat("JetHeight");
         if (tag.contains("JetThickness")) jetThickness = tag.getFloat("JetThickness");
         if (tag.contains("SwingChannel")) swingChannel = tag.getInt("SwingChannel");
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putFloat("JetHeight", jetHeight);
         tag.putFloat("JetThickness", jetThickness);
         tag.putInt("SwingChannel", swingChannel); // Sincroniza al cliente inicial

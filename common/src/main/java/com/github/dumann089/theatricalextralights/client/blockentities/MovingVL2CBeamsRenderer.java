@@ -243,7 +243,7 @@ public class MovingVL2CBeamsRenderer extends ExtraLightsFixtureRenderer<MovingVL
                     goboTex = blockEntity.getGoboLibrary().getTexture(outgoingSlot);
                 }
                 if (goboTex == null) {
-                    goboTex = new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+                    goboTex = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
                 }
 
                 // 🛡️ Obtención segura de textura secundaria (Gobo B - incoming)

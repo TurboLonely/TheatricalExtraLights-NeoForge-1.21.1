@@ -38,12 +38,12 @@ public final class FollowspotCameraClient {
         FollowspotFixtureCameraSession.getActive().applyCamera(minecraft.gameRenderer.getMainCamera());
     }
 
-    private static EventResult onMouseScrolled(Minecraft minecraft, double amount) {
+    private static EventResult onMouseScrolled(Minecraft minecraft, double amountX, double amountY) {
         FollowspotFixtureCameraSession session = FollowspotFixtureCameraSession.getActive();
         if (session == null || minecraft.screen != null) {
             return EventResult.pass();
         }
-        session.onMouseScroll(minecraft, amount);
+        session.onMouseScroll(minecraft, amountY);
         return EventResult.interruptFalse();
     }
 

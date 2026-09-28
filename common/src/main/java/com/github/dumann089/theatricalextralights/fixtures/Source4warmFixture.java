@@ -20,9 +20,9 @@ public class Source4warmFixture extends Fixture {
                     .addSlot(SharedSlots.INTENSITY)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/spotlight/new_source_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/spotlight/new_source_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/spotlight/source_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/spotlight/new_source_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/spotlight/new_source_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/spotlight/source_static");
 
     private final float[] tiltRotation = new float[]{0.5F, .5F, .6F};
     private final float[] panRotation = new float[]{0.5F, 0.625F, .5F};

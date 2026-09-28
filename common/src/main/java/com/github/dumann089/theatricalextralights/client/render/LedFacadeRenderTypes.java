@@ -21,7 +21,7 @@ public class LedFacadeRenderTypes {
     private static final Map<ResourceLocation, RenderType> CACHE = new HashMap<>();
 
     public static final ResourceLocation GEAR_TEXTURE =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "textures/gui/led_facade_gear.png");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "textures/gui/led_facade_gear.png");
 
     public static RenderType surface(ResourceLocation texture) {
         return CACHE.computeIfAbsent(texture, LedFacadeRenderTypes::build);

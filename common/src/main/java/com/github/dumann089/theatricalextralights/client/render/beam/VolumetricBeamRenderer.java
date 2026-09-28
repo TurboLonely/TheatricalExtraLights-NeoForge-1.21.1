@@ -155,7 +155,7 @@ public class VolumetricBeamRenderer extends LazyRenderers.LazyRenderer {
 
         ResourceLocation gobo = data.goboTexture() != null
                 ? data.goboTexture()
-                : new ResourceLocation("theatricalextralights", "textures/gobos/generic_1/open.png");
+                : ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/gobos/generic_1/open.png");
         if (IrisCompat.isShadersActive()) {
             this.beamRenderTypes[slot] = ModShaders.getVolumetricFallbackRenderType(gobo);
         } else {

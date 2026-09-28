@@ -6,6 +6,7 @@ import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.api.dmx.DMXPersonality;
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -180,8 +181,8 @@ public class MovingMiniBarBlockEntity extends ExtraLightsLightBlockEntity implem
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putIntArray("beamIntensity", beamIntensity);
         tag.putIntArray("beamRed", beamRed);
@@ -191,8 +192,8 @@ public class MovingMiniBarBlockEntity extends ExtraLightsLightBlockEntity implem
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("activePersonality")) {
             setActivePersonality(tag.getInt("activePersonality"));
         }
@@ -219,8 +220,8 @@ public class MovingMiniBarBlockEntity extends ExtraLightsLightBlockEntity implem
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putIntArray("beamIntensity", beamIntensity);
         tag.putIntArray("beamRed", beamRed);

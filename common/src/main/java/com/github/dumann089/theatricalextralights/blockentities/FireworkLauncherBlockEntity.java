@@ -11,6 +11,7 @@ import dev.imabad.theatrical.api.dmx.DMXPersonality;
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
 import dev.imabad.theatrical.blocks.light.BaseLightBlock;
 import dev.imabad.theatrical.fixtures.SharedSlots;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -277,16 +278,16 @@ public class FireworkLauncherBlockEntity extends ExtraLightsLightBlockEntity imp
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putFloat("FireAccumulator", fireAccumulator);
         tag.putInt("PrevIntensity", prevIntensity);
         tag.putBoolean("PendingOneShot", pendingOneShot);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         setChannelCount(3);
         fireAccumulator = tag.getFloat("FireAccumulator");
         prevIntensity = tag.getInt("PrevIntensity");

@@ -23,9 +23,9 @@ public class LEDfountainFixture extends Fixture {
                     .addSlot(SharedSlots.BLUE)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_body_only");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_handle_only");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_hook_bar");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_body_only");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_handle_only");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/fountain_lamp/fountain_lamp_hook_bar");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.75F, .5F};
     private final float[] panRotation = new float[]{0.5F, 0F, .41F};

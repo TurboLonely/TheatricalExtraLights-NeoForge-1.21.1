@@ -27,7 +27,7 @@ public class LedFacadeFixture extends Fixture {
     );
 
     private static final ResourceLocation STATIC_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/ledfacade/led_facade_whole");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/ledfacade/led_facade_whole");
 
     @Override
     public ResourceLocation getTiltModel() {

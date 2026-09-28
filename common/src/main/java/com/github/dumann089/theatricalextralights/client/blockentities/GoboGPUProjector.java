@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
@@ -119,7 +120,7 @@ public class GoboGPUProjector {
 
         Vec3 rayStart = origin.add(beamDir.scale(0.35f));
         Vec3 rayEnd = origin.add(beamDir.scale(maxDistance));
-        BlockHitResult hitResult = be.getLevel().clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+        BlockHitResult hitResult = be.getLevel().clip(new ClipContext(rayStart, rayEnd, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
 
         final boolean hasOcclusion = hitResult.getType() != HitResult.Type.MISS;
         final Vec3 finalOcclusionPos = hasOcclusion ? hitResult.getLocation() : Vec3.ZERO;
@@ -252,13 +253,12 @@ public class GoboGPUProjector {
                 shader.apply();
 
                 Tesselator tess = Tesselator.getInstance();
-                BufferBuilder bb = tess.getBuilder();
-                bb.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-                bb.vertex(-1.0f, -1.0f, 0.0f).color(255, 255, 255, 255).uv(0.0f, 0.0f).endVertex();
-                bb.vertex(1.0f, -1.0f, 0.0f).color(255, 255, 255, 255).uv(1.0f, 0.0f).endVertex();
-                bb.vertex(1.0f, 1.0f, 0.0f).color(255, 255, 255, 255).uv(1.0f, 1.0f).endVertex();
-                bb.vertex(-1.0f, 1.0f, 0.0f).color(255, 255, 255, 255).uv(0.0f, 1.0f).endVertex();
-                BufferUploader.drawWithShader(bb.end());
+                BufferBuilder bb = tess.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+                bb.addVertex(-1.0f, -1.0f, 0.0f).setColor(255, 255, 255, 255).setUv(0.0f, 0.0f);
+                bb.addVertex(1.0f, -1.0f, 0.0f).setColor(255, 255, 255, 255).setUv(1.0f, 0.0f);
+                bb.addVertex(1.0f, 1.0f, 0.0f).setColor(255, 255, 255, 255).setUv(1.0f, 1.0f);
+                bb.addVertex(-1.0f, 1.0f, 0.0f).setColor(255, 255, 255, 255).setUv(0.0f, 1.0f);
+                BufferUploader.drawWithShader(bb.buildOrThrow());
 
                 RenderSystem.enableDepthTest();
                 RenderSystem.depthMask(true);
@@ -281,7 +281,7 @@ public class GoboGPUProjector {
         }
         ResourceLocation texture = be.getGoboLibrary().getTexture(slot);
         if (texture != null) return texture;
-        return new ResourceLocation("theatricalextralights", "textures/gobos/generic_1/open.png");
+        return ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/gobos/generic_1/open.png");
     }
 
     private static void applyFixtureOrientation(

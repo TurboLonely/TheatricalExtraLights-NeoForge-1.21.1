@@ -43,9 +43,9 @@ public class SearchlightFixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)  // Prism Rotation
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/searchlight/searchlight_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.34F, 0.484F};
     private final float[] panRotation = new float[]{0.5F, 0.25F, 0.46F};

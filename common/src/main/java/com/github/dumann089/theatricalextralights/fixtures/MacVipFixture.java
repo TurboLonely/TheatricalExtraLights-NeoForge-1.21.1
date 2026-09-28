@@ -43,9 +43,9 @@ public class MacVipFixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)  // Prism Rotation
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/macvip/macvip_static");
 
     private final float[] tiltRotation = new float[]{0.496F, 0.765F, .50F};
     private final float[] panRotation = new float[]{0.5F, 0.256F, .5F};

@@ -180,7 +180,7 @@ public class LEDfountainRenderer extends ExtraLightsFixtureRenderer<LEDFountainB
             }
 
             if (goboTex == null) {
-                goboTex = new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+                goboTex = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
             }
 
             BeamRenderData renderData = new BeamRenderData(

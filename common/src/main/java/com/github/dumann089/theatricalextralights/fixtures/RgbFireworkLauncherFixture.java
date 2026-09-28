@@ -25,8 +25,8 @@ public class RgbFireworkLauncherFixture extends Fixture {
                     .addSlot(ExtraLightsDmxSlots.EFFECT)
     );
 
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/firework_rgb_launcher_static");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/firework_rgb_launcher_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/firework_rgb_launcher_static");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/firework_rgb_launcher_pan");
     private final float[] tiltPivot = new float[]{0.5f, 0.25f, 0.5f};
 
     @Override

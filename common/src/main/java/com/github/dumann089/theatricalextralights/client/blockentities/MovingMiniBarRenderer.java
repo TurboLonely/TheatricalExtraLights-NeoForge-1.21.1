@@ -208,11 +208,11 @@ public class MovingMiniBarRenderer extends ExtraLightsRenderer<MovingMiniBarBloc
                              int r, int g, int b, int a,
                              float x, float y, float z) {
         if (Beam2DRenderTypes.isShadersActive()) {
-            builder.vertex(m, x, y, z)
-                    .color(r, g, b, a)
-                    .uv(0f, 0f)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .endVertex();
+            builder.addVertex(m, x, y, z)
+                    .setColor(r, g, b, a)
+                    .setUv(0f, 0f)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    ;
         } else {
             super.addVertex(builder, m, nm, r, g, b, a, x, y, z);
         }

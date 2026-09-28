@@ -1,233 +1,160 @@
-# Theatrical: Extra Lights
+# Theatrical: Extra Lights — NeoForge 1.21.1 (Unofficial Port)
 
-**Extra stage lighting for [Theatrical](https://modrinth.com/mod/theatrical)** — moving heads, LED panels, PARs, lasers, water jets, pyro, and more.  
-Built for concert and theatre setups in Minecraft, controlled over DMX / Art-Net like the base mod.
+> **This is an unofficial, community-made port.** It is **not** affiliated with, endorsed by, or
+> supported by the original authors. All credit for the mod itself goes to the original
+> Extra Lights team — see [Credits & Attribution](#credits--attribution).
+>
+> **这是一个非官方移植版**，与原作者团队无隶属关系，也未获得其背书或支持。模组本体的全部
+> 功劳归原作者团队所有，详见下方的署名与致谢章节。
 
-> 📖 **Full documentation:** [Theatrical: Extra Lights wiki](https://extra-light.nailec.fr/) — guides, every fixture's channel map, grandMA2 files.
+A port of [Theatrical: Extra Lights](https://github.com/dumann089/TheatricalExtraLights) to
+**Minecraft 1.21.1 / NeoForge**, built on [Architectury](https://github.com/architectury).
 
-> **This is an addon.** [Theatrical](https://modrinth.com/mod/theatrical) is **required**. Keep both mods on the latest compatible versions.
+Extra Lights is an addon for [Theatrical](https://github.com/theatricalmod/Theatrical) that adds
+extra live-event fixtures — moving heads, LED panels, PARs, lasers, water jets, pyro, and more —
+controlled over DMX / Art-Net just like the base mod.
 
-[![Discord](https://img.shields.io/discord/481830554447118371.svg?label=Join%20Theatrical%20Discord)](https://discord.gg/7qMs5d6)
+> **This is an addon.** [Theatrical](https://github.com/theatricalmod/Theatrical) is **required**.
+> Keep both mods on compatible versions.
 
 ---
 
-## Screenshots
+## About this port
 
-| Concert lighting | Stage wash | Full rig build |
-|:---:|:---:|:---:|
-| ![Concert lighting](https://cdn.modrinth.com/data/cached_images/177b5dae2852e0f469fcfc30fe8b845c739f75c2_0.webp) | ![Stage wash](https://cdn.modrinth.com/data/cached_images/21f9d3d9e6272944196ab716646cd321d43cd760_0.webp) | ![Full rig](https://cdn.modrinth.com/data/tkqUgNnN/images/fae4b5f4da174516f931ec3de9960e34e2c4de42.png) |
+This repository is **NeoForge-only**. The upstream multi-loader layout was reduced so that only the
+NeoForge target is built:
 
----
+| | Upstream | This port |
+|---|---|---|
+| Loaders | Fabric + Forge | **NeoForge only** |
+| Minecraft | 1.20.1 | **1.21.1** |
+| Modules | `common`, `fabric`, `forge` | `common`, `neoforge` |
 
-## What is this mod?
+Work done in this port, on top of the upstream sources:
 
-Theatrical already gives you a solid lighting foundation — DMX networks, trusses, configuration cards, and a growing fixture library. **Extra Lights** adds the fixtures that are not in the official pack: more variety for real show design, without replacing Theatrical.
+- Removed the `fabric` and `forge` modules and reworked `settings.gradle` / `build.gradle` so only
+  `common` + `neoforge` are built.
+- Completed the Minecraft 1.20.1 → 1.21.1 API migration (rendering / vertex API, data components,
+  `RegistryFriendlyByteBuf`-based networking, screen input handling, and more).
+- Reworked the networking layer for the NeoForge payload system.
+- Removed the optional Shimmer compatibility layer — the `ReloadShaderManager` mixin and its shader
+  resource providers were specific to the 1.20.1 rendering stack and no longer apply on 1.21.1.
 
-Use it when you want:
-
-- More **moving heads** and beam fixtures (7ch / 10ch personalities)
-- **LED panels**, blinders, washes, and RGB bars
-- **PAR arrays** (Par56, Par64, Par 1000) in many colors
-- **Effects** — strobes, atomic strobes, lasers, scrollers, water jets
-- **Pyro** — gerbs, flame projectors, and a large firework launcher set
-- **Rig pieces** — mini truss segments for cleaner builds
-
-New lights are added over time. Updates follow Theatrical releases — use a recent Theatrical build when possible.
-
-Need help or want to follow development? Join the **[Theatrical Discord](https://discord.gg/7qMs5d6)**.
+Upstream features, content, textures and assets are unchanged, except for the addition of a
+built-in Simplified Chinese language file (`assets/theatricalextralights/lang/zh_cn.json`).
 
 ---
 
 ## Requirements
 
-| | |
+| | Version |
 |---|---|
-| **Minecraft** | 1.20.1 |
-| **Loaders** | Fabric · Forge |
-| **Required mod** | [Theatrical](https://modrinth.com/mod/theatrical) |
-| **Tested with** | Theatrical `1.0.0-alpha.28.120+mc1.20.1` or newer |
+| Minecraft | 1.21.1 |
+| Mod loader | NeoForge 21.1.x (built against 21.1.251) |
+| Architectury API | 13.x |
+| Theatrical | 1.0.0-alpha.23 or newer (use the companion NeoForge port) |
+| Java | 21 |
 
-Install **Theatrical first**, then Extra Lights.
+**Required dependencies** (neither is bundled): [Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api)
+(NeoForge, 13.x) and [Theatrical](https://github.com/theatricalmod/Theatrical). The addon will not
+load without them.
 
----
+## Installation
 
-## Features
+1. Install Minecraft 1.21.1 with **NeoForge**.
+2. Drop [Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api) (NeoForge 13.x), **Theatrical**, and this addon into your `mods` folder.
+3. Launch the game.
 
-### Fixture library
+## Downloads
 
-Hundreds of placeable fixtures across creative tabs **Theatrical: Extra Lights** and **Theatrical Pyro**, including:
+Grab the latest jar from the [**Releases**](../../releases) page of this repository:
 
-- **Moving heads** — Moving 500, Beam 7R, Mac VIP, Sharpy+, Robit Spot, Verve Spot, VL2/VL6, scans, gobo variants…
-- **Wash & spot** — Source Four, followspot, searchlight, wash LED, mini wash, VL 6000
-- **PAR & panels** — LED Par, Par 1000, x8 Par64, 2×2 / 2×8 / 6×3 Par64 arrays, big panels, shaped LED panels
-- **Blinders & strobes** — 4×2 blinder, atomic strobe (34ch), atomic tilt, white strobe
-- **Effects** — laser, laser mirror, LED fountain, RGB / vertical bars, scrollers, invisible light
-- **Water jets** — jets, cones, bloom, fog, organ pipes, moving fan, and more
-- **Pyro** — 50+ firework launchers, Pyro Fan, RGB launcher, confetti, gerbs, flame projector, **flame thrower**, daytime powder *(see [Pyro](#pyro-theatrical-pyro-tab) below)*
-- **Rig** — mini truss, corner, T-corner, cross joint
-- **Followspot console** — operator desk to remotely aim and dim a patched 7ch followspot
+- `TheatricalExtraLights-neoforge-<version>-mc1.21.1.jar` — the addon itself.
 
-All DMX fixtures work with Theatrical’s **Configuration Card**, **Art-Net networks**, and in-game patching.
+This port ships a **built-in Simplified Chinese localization**
+(`assets/theatricalextralights/lang/zh_cn.json` inside the jar). Set the game language to
+*简体中文 (Simplified Chinese)* and it applies automatically — **no separate resource pack is
+required**.
 
-### Improved patching & configuration *(recent)*
+## Building from source
 
-- **Configuration card** — automatically jumps to the **next universe at address 1** when a fixture no longer fits in the remaining 512 channels (e.g. Universe 1 @ 500 + 34ch Atomic → Universe 2 @ 1)
-- **Clear chat feedback** — fixture name, network, channel range, wrap notice, and next card address
-- **Fixture config screen** — clean UI with labels above fields, Save / Cancel, live **DMX footprint** preview, and personality-aware channel count
-- **Keyboard shortcuts** — Enter to save, Escape to cancel
-- **Stable beams** — smoother pan/tilt and intensity at full DMX without flicker or double beams
-- **Address overlap warning** — fixture config screen warns when another fixture on the same network uses overlapping channels (non-blocking)
+```bash
+# JDK 21 required
+./gradlew :neoforge:build
+```
 
-### Followspot console *(recent)*
+The addon compiles against the companion Theatrical NeoForge port, expected as a sibling checkout
+(`../theatrical-1.21.1`) with its dev jars built (`:neoforge:build`, `:common:build`).
 
-- **Operator desk** — place a **Followspot Console**, patch a **7-channel** fixture (network / universe / address), and control it from the panel
-- **Live DMX** — Focus, RGB, and Intensity sliders plus **ZQSD** pan/tilt while the menu is open
-- **First-person aiming** — **Control fixture** switches to a client-side camera at the fixture lens (mouse + ZQSD); **Esc** returns to the desk — no player teleport
-- **French & German** — full UI translation for the console screen
+The mod jar is produced in `neoforge/build/libs/`. Use the plain
+`TheatricalExtraLights-neoforge-<version>-mc1.21.1.jar` (not `-dev-shadow` or `-sources`) for
+installation.
 
-![Followspot console UI](https://github.com/user-attachments/assets/24806e2a-fff8-4193-958f-a28e9cdad39e)
+To run a development client:
 
-### Pyro *(Theatrical Pyro tab)*
-
-Stage pyrotechnics controlled over DMX — launchers, mines, gerbs, and specialty effects for finales and daytime shows.
-
-**Creative tab:** **Theatrical Pyro** — all pyro blocks and firework launchers in one place.
-
-#### DMX control
-
-Most **firework launchers** use a **3-channel** personality:
-
-| Channel | Role |
-|---------|------|
-| **Intensity** | Fire rate (0 = off). Values ≥ 2 start firing; higher = faster shots. |
-| **Tilt** | Launch angle (0° = horizontal → 180° = straight up). Controls apex height. |
-| **Focus** | Launch power — how high and how far each shell travels. |
-
-Patch with the Configuration Card like any other fixture. **Shift + right-click** to open address / network settings.
-
-#### Firework launchers *(50+ presets)*
-
-Each launcher is a fixed effect type. Grouped by pattern family:
-
-| Family | Examples |
-|--------|----------|
-| **Comets** | Red / blue / green / gold — trailing shells, no burst |
-| **Long comets** | Gold, red, blue, green, silver — dense trail, short hover at apex |
-| **Peonies** | Classic sphere bursts — 7 colours |
-| **Willows** | Heavy drooping trails — 7 colours |
-| **Chrysanthemums** | Streak-filled spheres — 7 colours |
-| **Crossettes** | Crisscross secondary breaks — 7 colours |
-| **Mines** | Ground fountain — tall column, minimal fall-back |
-| **Special shells** | Palm, ring, spinner, horsetail, spider, diadem, salute, heart, double burst, multicolor, whistler |
-| **Strobe** | White strobe burst (scatter) · **White aerial strobe** (silent ascent, 4 s flash in the sky) |
-| **Daytime powder** | Lime, magenta, yellow, orange, red, blue — Holi-style coloured smoke, visible in daylight |
-| **Rainbow fan** | Multi-colour daytime powder fan |
-
-Effects use a custom spark renderer (not vanilla particles), optional **dynamic light** on bursts, and budget-limited smoke trails on comets.
-
-#### Specialty pyro fixtures
-
-| Fixture | Channels | Description |
-|---------|----------|-------------|
-| **Pyro Fan** | 3ch or **10ch** | 10 tubes firing gold comets in a vertical fan. 10ch mode: per-tube intensity + global tilt/focus. |
-| **RGB Firework Launcher** | **7ch** | Intensity, RGB, effect select, tilt, focus — pick any comet/burst preset and tint it. |
-| **Confetti cannon** | 1ch | High-altitude confetti burst on DMX trigger. |
-| **Gold gerb** | DMX | Stage gerb fountain. |
-| **Flame projector** | DMX | Continuous flame effect. |
-| **Flame thrower** | 2ch | Directed flame jet with pan control (intensity + pan). |
-
-#### Tips
-
-- Aim launchers with **tilt** before a show; use **focus** to match song dynamics.
-- **Daytime powder** and **rainbow fan** are designed for bright maps — minimal dynamic light, coloured plumes.
-- **Long comets** stop at apex and fade with a short controlled drop (~3 blocks).
-- **Mines** burst at the launcher — no rocket flight; good for stage-edge columns.
-- Intense pyro shows are throttled server-side (max concurrent rockets, per-tick launch cap) to stay stable on large rigs.
-
-**Pyro-related config** (in `theatricalextralights.json`): `fireworkRenderDistance`, `fireworkDynamicLightEnabled`, `fireworkSmokeEnabled`, `fireworkSmokeBudgetPerTick`, `fireworkSmokeSpawnInterval`.
-
----
-
-## Configuration file
-
-Extra Lights creates `config/theatricalextralights.json` in your Minecraft instance folder on first launch. Edit it while the game is **closed**, or change values and restart.
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `laserBeamLength` | float | `400.0` | Maximum laser beam length in blocks (minimum `20`). |
-| `rgbBarBeamLength` | float | `9.0` | RGB bar light reach in blocks (minimum `1`). |
-| `renderLens` | boolean | `true` | Draw lens glow on compatible fixtures. |
-| `maxGoboDistance` | float | `500.0` | Maximum distance for gobo projection (minimum `10`). |
-| `render2DBeam` | boolean | `false` | Use flat 2D beam rendering instead of volumetric beams where supported. |
-| `laserPassThroughBlocks` | string array | see below | Block IDs lasers pass through instead of stopping on. |
-
-**Default `laserPassThroughBlocks`:** `minecraft:glass`, `minecraft:tinted_glass`, `minecraft:iron_bars`, `minecraft:barrier`.
-
-Add scenic blocks (backdrops, decor) so laser beams continue to a wall behind them. Blocks from **Theatrical** and **Extra Lights** are always pass-through — you do not need to list them.
-
-**Example:**
-
-```json
-{
-  "laserBeamLength": 400.0,
-  "rgbBarBeamLength": 9.0,
-  "renderLens": true,
-  "maxGoboDistance": 500.0,
-  "render2DBeam": false,
-  "laserPassThroughBlocks": [
-    "minecraft:glass",
-    "minecraft:black_concrete"
-  ]
-}
+```bash
+./gradlew :neoforge:runClient
 ```
 
 ---
 
-## Quick start
+## Credits & Attribution
 
-1. Install **Theatrical** + **Extra Lights** for your loader (Fabric or Forge).
-2. Create or join a **Theatrical network** (Art-Net) in-game.
-3. Grab fixtures from the creative menu and build your rig on truss or floor.
-4. Use the **Configuration Card** (from Theatrical) to patch address / universe onto fixtures.
-5. Control everything from your DMX software through Art-Net, same as base Theatrical.
+**Original addon — all credit belongs to the Extra Lights team:**
 
-**Followspot console**
+- Repository: [dumann089/TheatricalExtraLights](https://github.com/dumann089/TheatricalExtraLights)
+- Documentation / wiki: [Theatrical: Extra Lights wiki](https://extra-light.nailec.fr/)
+- Base mod: [theatricalmod/Theatrical](https://github.com/theatricalmod/Theatrical)
+- Discord: [Join the Discord](https://discord.gg/7qMs5d6)
 
-1. Place a **Followspot Console** near your rig and a **7ch followspot** (or other 7-channel fixture).
-2. **Right-click** the console → set network, universe, and DMX address to match the fixture → **Link fixture**.
-3. Adjust Focus / RGB / Intensity with the sliders; use **ZQSD** for pan/tilt from the desk.
-4. **Control fixture** for first-person aiming at the lens; **Esc** to exit.
+Authors:
 
-**Pyro**
+- dumann089
+- Rushmead
+- J8-Diablo
+- nailec
 
-1. Grab launchers from the **Theatrical Pyro** creative tab.
-2. Patch each launcher on your Art-Net network (3ch default — intensity / tilt / focus).
-3. Raise **intensity** above 1 to fire; adjust **tilt** for height and **focus** for reach.
-4. For finales, combine **Pyro Fan** (10 tubes), **mines** (ground columns), and aerial shells (peonies, long comets, aerial strobe).
+This port is maintained by [TurboLonely](https://github.com/TurboLonely). Please **do not** report
+bugs in this port to the original authors — open an issue in this repository instead. For the
+original addon on supported versions, use the upstream pages above.
 
-**Tips**
+## License
 
-- **Shift + right-click** a fixture to open its DMX settings (address, universe, mode, network).
-- Enable **auto-increment** on the Configuration Card to patch a row of fixtures quickly.
-- Moving heads use **7ch / 10ch** modes — switch personality in the config screen if your desk expects a different profile.
+Licensed under the **MIT License**, the same license as the upstream project.
 
----
+```
+MIT License
 
-## Downloads
+Copyright (c) 2025 Stuart Pomeroy
+```
 
-- [Modrinth](https://modrinth.com/mod/theatrical-extra-lights)
-- [GitHub](https://github.com/dumann089/TheatricalExtraLights)
-
----
-
-## Contributing & credits
-
-**Authors:** [dumann089](https://github.com/dumann089) · Rushmead · J8-Diablo · nailec  
-
-**License:** [MIT](LICENSE) — Copyright (c) 2025 Stuart Pomeroy
-
-Bug reports and feature requests are welcome on GitHub. For questions and show screenshots, the Theatrical Discord is the best place to ask.
+See [LICENSE](LICENSE) for the full text. The original copyright notice and permission notice are
+retained, as required by the license. If you redistribute this or a modified version, keep the
+`LICENSE` file and this attribution intact.
 
 ---
 
-*Not affiliated with Theatrical core development — community addon maintained alongside the main mod.*
+## 中文说明
+
+**这是一个非官方移植版**，将 [Theatrical: Extra Lights](https://github.com/dumann089/TheatricalExtraLights)
+移植到 **Minecraft 1.21.1 + NeoForge**。模组本体由原作者团队开发，版权归其所有（MIT 协议），
+本仓库仅为 NeoForge 1.21.1 的适配版本，与原作者团队无关。
+
+**这是 Theatrical 的附属模组**，必须同时安装 [Theatrical](https://github.com/theatricalmod/Theatrical)
+才能使用。
+
+**环境要求：** Minecraft 1.21.1、NeoForge 21.1.x、Architectury API 13.x、Theatrical
+1.0.0-alpha.23 或更高版本、Java 21。
+
+**安装：** 安装 NeoForge 后，把 Architectury API、Theatrical 与本附属模组的 jar 一起放进
+`mods` 文件夹即可。
+
+**本移植版改动：** 移除 Fabric / Forge 模块（仅保留 NeoForge）、移除可选的 Shimmer 兼容层
+（`ReloadShaderManager` 注入及其着色器资源类，仅适用于 1.20.1 渲染栈）、完成 1.21.1 API
+迁移、重做网络层。除新增简体中文语言文件外，模组内容与材质资源均未改动。
+
+**内置汉化：** 本移植版已将简体中文语言文件直接内置进模组 jar
+（`assets/theatricalextralights/lang/zh_cn.json`），把游戏语言设为「简体中文」即自动生效，
+无需再额外安装任何汉化资源包。
+
+**反馈：** 本移植版的问题请在本仓库提 Issue，请勿打扰原作者。

@@ -308,7 +308,7 @@ public class ExtraLightsSettingsScreen extends Screen {
         // un voile noir a 75 % sur tout l'ecran, ce qui rend les faisceaux — deja tres peu
         // opaques — invisibles et donc l'apercu en direct inutilisable.
         if (this.minecraft == null || this.minecraft.level == null) {
-            renderBackground(graphics);
+            renderBackground(graphics, mouseX, mouseY, partialTick);
         }
 
         graphics.fill(panelLeft - 1, panelTop - 1, panelLeft + PANEL_WIDTH + 1, panelTop + panelHeight + 1, COLOR_PANEL_BORDER);

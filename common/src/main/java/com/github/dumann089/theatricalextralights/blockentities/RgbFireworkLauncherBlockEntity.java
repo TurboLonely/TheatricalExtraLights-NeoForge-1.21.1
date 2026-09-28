@@ -4,6 +4,7 @@ import com.github.dumann089.theatricalextralights.entities.FireworkRocketEntity;
 import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import com.github.dumann089.theatricalextralights.firework.FireworkPreset;
 import dev.imabad.theatrical.api.Fixture;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -85,14 +86,14 @@ public class RgbFireworkLauncherBlockEntity extends FireworkLauncherBlockEntity 
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("EffectDmx", effectDmx);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         setChannelCount(7);
         effectDmx = tag.getInt("EffectDmx");
         selectedPreset = FireworkPreset.byDmxIndex(effectDmx);

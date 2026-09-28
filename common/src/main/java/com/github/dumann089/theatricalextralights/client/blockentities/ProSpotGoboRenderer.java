@@ -257,7 +257,7 @@ public class ProSpotGoboRenderer extends ExtraLightsFixtureRenderer<ProSpotGoboB
                     goboTex = blockEntity.getGoboLibrary().getTexture(outgoingSlot);
                 }
                 if (goboTex == null) {
-                    goboTex = new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+                    goboTex = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
                 }
 
                 // 🛡️ Obtención segura de textura secundaria (Gobo B - incoming)
@@ -371,7 +371,7 @@ public class ProSpotGoboRenderer extends ExtraLightsFixtureRenderer<ProSpotGoboB
 
     private ResourceLocation resolveGoboTexture(ProSpotGoboBlockEntity blockEntity, int slot) {
         if (slot < 0) {
-            return new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+            return ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
         }
 
         String customFileName = GlobalGoboManager.getCustomGobo(blockEntity.getGoboLibrary(), slot);
@@ -384,7 +384,7 @@ public class ProSpotGoboRenderer extends ExtraLightsFixtureRenderer<ProSpotGoboB
             return tex;
         }
 
-        return new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+        return ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
     }
 
     private void renderFakeVolumetricBeams(

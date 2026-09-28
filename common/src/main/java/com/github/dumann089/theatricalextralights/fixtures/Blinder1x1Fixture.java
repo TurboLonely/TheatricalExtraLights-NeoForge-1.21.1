@@ -24,9 +24,9 @@ public class Blinder1x1Fixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/blinder1x1/blinder1x1_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.59375F, 0.5F};
     private final float[] panRotation = new float[]{0.5F, 0.90625F, 0.5F};

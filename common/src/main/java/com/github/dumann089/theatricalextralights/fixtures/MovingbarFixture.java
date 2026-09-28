@@ -26,9 +26,9 @@ public class MovingbarFixture extends Fixture {
                     .addSlot(SharedSlots.TILT)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/movingbar/movingbar_static");
 
     private final float[] tiltRotation = new float[]{0.493F, 0.921F, .5F};
     private final float[] panRotation = new float[]{0.5F, 0.218F, .5F};

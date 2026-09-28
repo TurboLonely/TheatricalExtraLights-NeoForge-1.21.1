@@ -20,9 +20,9 @@ public class Blinder2x2warmFixture extends Fixture {
                     .addSlot(SharedSlots.INTENSITY)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/blinder2x2/blinder2x2_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/blinder2x2/blinder2x2_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/4x2_blinder/4x2_blinder_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/blinder2x2/blinder2x2_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/blinder2x2/blinder2x2_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/4x2_blinder/4x2_blinder_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.43f, 0.5F};
     private final float[] panRotation = new float[]{0.5F, 0.75F, .53F};

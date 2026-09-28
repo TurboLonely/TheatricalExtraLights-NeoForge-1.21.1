@@ -6,6 +6,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 /** Raycast along a spark step so daytime powder stops on solid blocks. */
 public final class SparkBlockCollision {
@@ -29,7 +30,7 @@ public final class SparkBlockCollision {
                 to,
                 ClipContext.Block.COLLIDER,
                 ClipContext.Fluid.NONE,
-                null
+                CollisionContext.empty()
         ));
         if (hit.getType() != HitResult.Type.BLOCK) {
             return new MoveResult(to.x, to.y, to.z, false);

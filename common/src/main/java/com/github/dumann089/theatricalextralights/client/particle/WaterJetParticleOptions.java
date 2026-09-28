@@ -1,13 +1,13 @@
 package com.github.dumann089.theatricalextralights.client.particle;
 
 import com.github.dumann089.theatricalextralights.particle.ModParticle;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class WaterJetParticleOptions implements ParticleOptions {
 
@@ -57,19 +57,6 @@ public class WaterJetParticleOptions implements ParticleOptions {
         return ModParticle.WATERJET_OPTIONS.get();
     }
 
-    @Override
-    public void writeToNetwork(FriendlyByteBuf buf) {
-        buf.writeFloat(intensity);
-        buf.writeFloat(thickness);
-        buf.writeFloat(coneAngle);
-        buf.writeEnum(variant);
-        buf.writeBoolean(hasYaw);
-        if (hasYaw) {
-            buf.writeFloat(particleYaw);
-        }
-    }
-
-    @Override
     public String writeToString() {
         if (hasYaw) {
             return intensity + " " + thickness + " " + coneAngle + " " + variant.name() + " " + particleYaw;
@@ -77,8 +64,8 @@ public class WaterJetParticleOptions implements ParticleOptions {
         return intensity + " " + thickness + " " + coneAngle + " " + variant.name();
     }
 
-    public static final Codec<WaterJetParticleOptions> CODEC =
-            RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<WaterJetParticleOptions> CODEC =
+            RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.FLOAT.fieldOf("intensity").forGetter(o -> o.intensity),
                     Codec.FLOAT.fieldOf("thickness").forGetter(o -> o.thickness),
                     Codec.FLOAT.optionalFieldOf("coneAngle", 45.0f).forGetter(o -> o.coneAngle),
@@ -91,66 +78,31 @@ public class WaterJetParticleOptions implements ParticleOptions {
                             : new WaterJetParticleOptions(i, t, c, v)
             ));
 
-    public static final Deserializer<WaterJetParticleOptions> DESERIALIZER =
-            new Deserializer<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, WaterJetParticleOptions> STREAM_CODEC =
+            StreamCodec.of(
+                    (buf, value) -> {
+                        buf.writeFloat(value.intensity);
+                        buf.writeFloat(value.thickness);
+                        buf.writeFloat(value.coneAngle);
+                        buf.writeEnum(value.variant);
+                        buf.writeBoolean(value.hasYaw);
+                        if (value.hasYaw) {
+                            buf.writeFloat(value.particleYaw);
+                        }
+                    },
+                    buf -> {
+                        float intensity = buf.readFloat();
+                        float thickness = buf.readFloat();
+                        float coneAngle = buf.readFloat();
+                        JetVariant variant = buf.readEnum(JetVariant.class);
 
-                @Override
-                public WaterJetParticleOptions fromCommand(
-                        ParticleType<WaterJetParticleOptions> type,
-                        StringReader reader
-                ) throws CommandSyntaxException {
+                        boolean hasYaw = buf.readBoolean();
+                        if (hasYaw) {
+                            float yaw = buf.readFloat();
+                            return new WaterJetParticleOptions(intensity, thickness, coneAngle, variant, yaw);
+                        }
 
-                    float intensity = 1.0f;
-                    float thickness = 0.12f;
-                    float coneAngle = 45.0f;
-                    JetVariant variant = JetVariant.JET2;
-                    float yaw = 0.0f;
-                    boolean hasYaw = false;
-
-                    if (reader.canRead()) {
-                        reader.expect(' ');
-                        intensity = reader.readFloat();
+                        return new WaterJetParticleOptions(intensity, thickness, coneAngle, variant);
                     }
-                    if (reader.canRead()) {
-                        reader.expect(' ');
-                        thickness = reader.readFloat();
-                    }
-                    if (reader.canRead()) {
-                        reader.expect(' ');
-                        coneAngle = reader.readFloat();
-                    }
-                    if (reader.canRead()) {
-                        reader.expect(' ');
-                        variant = JetVariant.valueOf(reader.readString().toUpperCase());
-                    }
-                    if (reader.canRead()) {
-                        reader.expect(' ');
-                        yaw = reader.readFloat();
-                        hasYaw = true;
-                    }
-
-                    return hasYaw
-                            ? new WaterJetParticleOptions(intensity, thickness, coneAngle, variant, yaw)
-                            : new WaterJetParticleOptions(intensity, thickness, coneAngle, variant);
-                }
-
-                @Override
-                public WaterJetParticleOptions fromNetwork(
-                        ParticleType<WaterJetParticleOptions> type,
-                        FriendlyByteBuf buf
-                ) {
-                    float intensity = buf.readFloat();
-                    float thickness = buf.readFloat();
-                    float coneAngle = buf.readFloat();
-                    JetVariant variant = buf.readEnum(JetVariant.class);
-
-                    boolean hasYaw = buf.readBoolean();
-                    if (hasYaw) {
-                        float yaw = buf.readFloat();
-                        return new WaterJetParticleOptions(intensity, thickness, coneAngle, variant, yaw);
-                    }
-
-                    return new WaterJetParticleOptions(intensity, thickness, coneAngle, variant);
-                }
-            };
+            );
 }

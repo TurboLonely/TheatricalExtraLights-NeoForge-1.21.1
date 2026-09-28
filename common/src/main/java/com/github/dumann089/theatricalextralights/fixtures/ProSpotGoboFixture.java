@@ -31,9 +31,9 @@ public class ProSpotGoboFixture extends Fixture {
             ProfileHeadChannels.PERSONALITY_PROFILE
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/prospotlx/prospot_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.640F, 0.491F};
     private final float[] panRotation = new float[]{0.5F, 0.167F, .5F};

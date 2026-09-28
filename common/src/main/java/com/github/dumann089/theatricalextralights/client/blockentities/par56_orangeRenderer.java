@@ -180,7 +180,7 @@ public class par56_orangeRenderer extends ExtraLightsFixtureRenderer<par56_orang
             }
 
             if (goboTex == null) {
-                goboTex = new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+                goboTex = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
             }
 
             BeamRenderData renderData = new BeamRenderData(

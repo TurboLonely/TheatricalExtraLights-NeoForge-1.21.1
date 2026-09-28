@@ -172,10 +172,10 @@ public class AtomicStrobeRenderer extends ExtraLightsRenderer<AtomicStrobeBlockE
     private static void quad(VertexConsumer vc, Matrix4f m,
                              float x0, float y0, float x1, float y1, float z,
                              int r, int g, int b, int a) {
-        vc.vertex(m, x0, y0, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x1, y0, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x1, y1, z).color(r, g, b, a).endVertex();
-        vc.vertex(m, x0, y1, z).color(r, g, b, a).endVertex();
+        vc.addVertex(m, x0, y0, z).setColor(r, g, b, a);
+        vc.addVertex(m, x1, y0, z).setColor(r, g, b, a);
+        vc.addVertex(m, x1, y1, z).setColor(r, g, b, a);
+        vc.addVertex(m, x0, y1, z).setColor(r, g, b, a);
     }
 
     @Override

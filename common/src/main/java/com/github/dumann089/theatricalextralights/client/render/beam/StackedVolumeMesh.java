@@ -166,10 +166,10 @@ public final class StackedVolumeMesh {
             for (int v = 0; v < 4; v++) {
                 int o = base + v * FLOATS_PER_VERT;
                 int a = Math.min(255, Math.max(0, (int) (verts[o + 5] * alphaScale * 255.0f)));
-                vc.vertex(mat, verts[o], verts[o + 1], verts[o + 2])
-                        .color(r, g, b, a)
-                        .uv(verts[o + 3], verts[o + 4])
-                        .endVertex();
+                vc.addVertex(mat, verts[o], verts[o + 1], verts[o + 2])
+                        .setColor(r, g, b, a)
+                        .setUv(verts[o + 3], verts[o + 4])
+                        ;
             }
         }
     }
@@ -246,10 +246,10 @@ public final class StackedVolumeMesh {
         float x3 = cx - right.x * rW + up.x * rH;
         float y3 = cy - right.y * rW + up.y * rH;
         float z3 = cz - right.z * rW + up.z * rH;
-        vc.vertex(mat, x0, y0, z0).color(r, g, b, a).uv(0f, 1f).endVertex();
-        vc.vertex(mat, x1, y1, z1).color(r, g, b, a).uv(1f, 1f).endVertex();
-        vc.vertex(mat, x2, y2, z2).color(r, g, b, a).uv(1f, 0f).endVertex();
-        vc.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(0f, 0f).endVertex();
+        vc.addVertex(mat, x0, y0, z0).setColor(r, g, b, a).setUv(0f, 1f);
+        vc.addVertex(mat, x1, y1, z1).setColor(r, g, b, a).setUv(1f, 1f);
+        vc.addVertex(mat, x2, y2, z2).setColor(r, g, b, a).setUv(1f, 0f);
+        vc.addVertex(mat, x3, y3, z3).setColor(r, g, b, a).setUv(0f, 0f);
     }
 
     private static int emitDisc(float[] dest, int idx,

@@ -60,7 +60,7 @@ public final class FlameThrowerClientEffects {
         }
 
         Direction facing = blockEntity.getBlockState().getValue(BaseLightBlock.FACING);
-        float headRenderAngle = blockEntity.getHeadRenderAngle(minecraft.getFrameTime());
+        float headRenderAngle = blockEntity.getHeadRenderAngle(minecraft.getTimer().getGameTimeDeltaPartialTick(false));
 
         FlameThrowerParticleSpawner.spawnJet(
                 level,

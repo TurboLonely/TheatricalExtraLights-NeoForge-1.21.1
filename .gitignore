@@ -20,7 +20,8 @@ classes/
 !gradle/wrapper/gradle-wrapper.jar
 PULL_REQUEST.md
 
-# Wiki (VitePress)
-docs/node_modules/
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+.architectury-transformer
+**/.architectury-transformer
+
+# Local port scratch files (not part of the repository)
+.tmp_*

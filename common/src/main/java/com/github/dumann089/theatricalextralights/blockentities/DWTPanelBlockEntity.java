@@ -6,6 +6,7 @@ import com.github.dumann089.theatricalextralights.util.DmxShutterStrobeHelper;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
 import dev.imabad.theatrical.lighting.LightManager;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -145,8 +146,8 @@ public class DWTPanelBlockEntity extends ExtraLightsLightBlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putIntArray("Sections", sections);
         tag.putInt("WarmSection", warmSection);
         return tag;

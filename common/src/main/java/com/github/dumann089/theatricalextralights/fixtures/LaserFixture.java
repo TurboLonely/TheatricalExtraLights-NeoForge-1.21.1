@@ -41,9 +41,9 @@ public class LaserFixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)       // 19: Persistence
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/laser/laser_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/laser/laser_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/laser/laser_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/laser/laser_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/laser/laser_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/laser/laser_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.53F, 0.0F};
     private final float[] panRotation = new float[]{0.5F, 0.53F, 0.0F};

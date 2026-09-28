@@ -50,9 +50,9 @@ public class AtomicStrobeFixture extends Fixture {
 
     private static final List<DMXPersonality> PERSONALITIES = Collections.singletonList(buildPersonality());
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/atomic_strobe/atomic_strobe_static");
     // Body at y∈[2,7], z∈[9,11] (face at z=11.1). Yoke is now a vertical floor
     // stand: ears at y=[4,5], posts at y=[0.5,4], base plate at y=[0,0.5].
     // Pan pivot = base centre (where the floor stand rotates), tilt pivot =

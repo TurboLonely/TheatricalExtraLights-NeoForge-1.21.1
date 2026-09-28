@@ -26,8 +26,8 @@ public class FireworkLauncherFixture extends Fixture {
     private final float[] tiltPivot = new float[]{0.5f, 0.25f, 0.5f};
 
     public FireworkLauncherFixture(FireworkPreset preset) {
-        this.staticModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/" + preset.getBlockId() + "_static");
-        this.panModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/firework/" + preset.getBlockId() + "_pan");
+        this.staticModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/" + preset.getBlockId() + "_static");
+        this.panModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/firework/" + preset.getBlockId() + "_pan");
     }
 
     @Override

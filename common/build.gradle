@@ -8,10 +8,6 @@ loom {
 configurations {
     shadowCommon
 }
-configurations.all {
-    // Check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
 
 sourceSets {
     main {
@@ -19,36 +15,27 @@ sourceSets {
     }
 }
 
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-
-    // ← Agregá esto
-    from project(":common").sourceSets.main.resources
-}
-
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
-    // Theatrical
-    modImplementation group: "dev.imabad", name: "Theatrical", version: "${theatrical_version}", changing: true
-    implementation "ch.bildspur:artnet4j:0.6.3"
+    // ArtNet
+    implementation "ch.bildspur:artnet4j:${rootProject.artnet4j_version}"
 
-    // Compile against local Theatrical-official when Maven is behind (DmxFrame batch API).
-    def theatricalApiClasses = file("${rootDir}/../Theatrical-official-1.20.1/common/build/classes/java/main")
-    if (theatricalApiClasses.exists()) {
-        compileOnly files(theatricalApiClasses)
-    }
-
-    if (rootProject.include_shimmer == "true") {
-        modCompileOnly "com.lowdragmc.shimmer:Shimmer-common:${rootProject.shimmer_version}"
+    // Compile against the local Theatrical 1.21.1 (NeoForge) port build output.
+    //
+    // This MUST be a jar, not a class directory. The Architectury transformer
+    // builds its lookup classpath (ReadClasspathProviderImpl) by scanning each
+    // entry: `.class` files are indexed, `.jar`/`.zip` archives are indexed via
+    // walkArchive(), and anything else (e.g. a directory) silently yields an
+    // empty list. A directory entry therefore never resolves, and
+    // `transformProduction*` dies with
+    // "Type <theatrical class> not present".
+    def theatricalCommonDev = fileTree(dir: "${rootDir}/../theatrical-1.21.1/common/build/devlibs", include: ["*-dev.jar"])
+    if (!theatricalCommonDev.isEmpty()) {
+        compileOnly theatricalCommonDev
     }
 }
 
@@ -60,8 +47,6 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
     }
 }

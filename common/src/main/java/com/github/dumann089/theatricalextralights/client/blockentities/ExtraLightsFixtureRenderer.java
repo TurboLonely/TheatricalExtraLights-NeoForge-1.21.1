@@ -138,7 +138,7 @@ public abstract class ExtraLightsFixtureRenderer<T extends BaseLightBlockEntity>
         Vec3 beamDir = new Vec3(-headMatrix.m20(), -headMatrix.m21(), -headMatrix.m22()).normalize();
 
         float tanHalfAngle = (float) Math.tan(Math.toRadians(minAngleDeg + focusNorm * (maxAngleDeg - minAngleDeg)));
-        ResourceLocation goboTexture = (goboLibrary != null) ? goboLibrary.getTexture(goboSlot) : new ResourceLocation("theatricalextralights", "textures/gobos/generic_1/open.png");
+        ResourceLocation goboTexture = (goboLibrary != null) ? goboLibrary.getTexture(goboSlot) : ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/gobos/generic_1/open.png");
 
         BeamRenderData renderData = new BeamRenderData(
                 blockEntity.getBlockPos(),
@@ -178,18 +178,18 @@ public abstract class ExtraLightsFixtureRenderer<T extends BaseLightBlockEntity>
     private static void addVertexPC(VertexConsumer vc, Matrix4f m,
                                     int r, int g, int b, int a,
                                     float x, float y, float z) {
-        vc.vertex(m, x, y, z)
-                .color(r, g, b, a)
-                .endVertex();
+        vc.addVertex(m, x, y, z)
+                .setColor(r, g, b, a)
+                ;
     }
 
     // BEAM_SHADERS
     private static void addVertexPCTL(VertexConsumer vc, Matrix4f m,
                                       int r, int g, int b, int a,
                                       float x, float y, float z) {
-        vc.vertex(m, x, y, z)
-                .color(r, g, b, a)
-                .endVertex();
+        vc.addVertex(m, x, y, z)
+                .setColor(r, g, b, a)
+                ;
     }
 
     private static void addBeamVertex(VertexConsumer vc, Matrix4f m,
@@ -206,11 +206,11 @@ public abstract class ExtraLightsFixtureRenderer<T extends BaseLightBlockEntity>
                                       int r, int g, int b, int a,
                                       float x, float y, float z,
                                       float u, float v) {
-        vc.vertex(m, x, y, z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .uv2(LightTexture.FULL_BRIGHT)
-                .endVertex();
+        vc.addVertex(m, x, y, z)
+                .setColor(r, g, b, a)
+                .setUv(u, v)
+                .setLight(LightTexture.FULL_BRIGHT)
+                ;
     }
 
     // ── Beam 2D ─────────────────────────────────────────────────────────────

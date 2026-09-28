@@ -262,7 +262,7 @@ public class MiniScanGobosRenderer extends ExtraLightsFixtureRenderer<MiniScanGo
                     goboTex = blockEntity.getGoboLibrary().getTexture(outgoingSlot);
                 }
                 if (goboTex == null) {
-                    goboTex = new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+                    goboTex = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
                 }
 
                 // 🛡️ Obtención segura de textura secundaria (Gobo B - incoming)
@@ -380,7 +380,7 @@ public class MiniScanGobosRenderer extends ExtraLightsFixtureRenderer<MiniScanGo
 
     private ResourceLocation resolveGoboTexture(MiniScanGobosBlockEntity blockEntity, int slot) {
         if (slot < 0) {
-            return new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+            return ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
         }
 
         String customFileName = GlobalGoboManager.getCustomGobo(blockEntity.getGoboLibrary(), slot);
@@ -393,7 +393,7 @@ public class MiniScanGobosRenderer extends ExtraLightsFixtureRenderer<MiniScanGo
             return tex;
         }
 
-        return new ResourceLocation("theatricalextralights", "textures/empty_fallback.png");
+        return ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/empty_fallback.png");
     }
 
     private void renderFakeVolumetricBeams(

@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 public final class ExtraLightsRenderTypes {
     public static final ParticleRenderType FLAME_THROWER_JET = new ParticleRenderType() {
         @Override
-        public void begin(BufferBuilder builder, TextureManager textureManager) {
+        public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
             RenderSystem.disableCull();
             RenderSystem.depthMask(false);
             RenderSystem.setShader(GameRenderer::getParticleShader);
@@ -28,14 +28,7 @@ public final class ExtraLightsRenderTypes {
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
             RenderSystem.enableDepthTest();
-            builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
-        }
-
-        @Override
-        public void end(Tesselator tesselator) {
-            tesselator.end();
-            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            RenderSystem.depthMask(true);
+            return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
         }
 
         @Override
@@ -47,7 +40,7 @@ public final class ExtraLightsRenderTypes {
     /** CO₂ : alpha blend classique (fumée translucide, pas de lueur additive). */
     public static final ParticleRenderType CO2_JET = new ParticleRenderType() {
         @Override
-        public void begin(BufferBuilder builder, TextureManager textureManager) {
+        public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
             RenderSystem.disableCull();
             RenderSystem.depthMask(false);
             RenderSystem.setShader(GameRenderer::getParticleShader);
@@ -60,13 +53,7 @@ public final class ExtraLightsRenderTypes {
                     GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA
             );
             RenderSystem.enableDepthTest();
-            builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
-        }
-
-        @Override
-        public void end(Tesselator tesselator) {
-            tesselator.end();
-            RenderSystem.depthMask(true);
+            return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
         }
 
         @Override

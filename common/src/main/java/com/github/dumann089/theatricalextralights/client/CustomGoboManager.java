@@ -44,7 +44,7 @@ public class CustomGoboManager {
             DynamicTexture dynamicTexture = new DynamicTexture(nativeImage);
 
             // Crear un ID único para Minecraft y registrarlo
-            ResourceLocation rl = new ResourceLocation("theatricalextralights", "custom_gobo_" + fileName.toLowerCase().replace(".png", ""));
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "custom_gobo_" + fileName.toLowerCase().replace(".png", ""));
             Minecraft.getInstance().getTextureManager().register(rl, dynamicTexture);
 
             LOADED_GOBOS.put(fileName, rl);

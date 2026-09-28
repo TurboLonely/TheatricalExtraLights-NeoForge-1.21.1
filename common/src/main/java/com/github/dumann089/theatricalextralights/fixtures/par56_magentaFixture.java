@@ -21,9 +21,9 @@ public class par56_magentaFixture extends Fixture {
                     .addSlot(SharedSlots.INTENSITY)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_magenta_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_magenta_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/par56_fountain/par56_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 1.57F, .5F};
     private final float[] panRotation = new float[]{0.5F, 1F, .5F};

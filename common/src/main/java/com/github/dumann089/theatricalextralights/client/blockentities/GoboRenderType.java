@@ -55,14 +55,14 @@ public class GoboRenderType extends RenderType {
 
         return RenderType.create(
                 "gobo_decal_" + texture.getPath(),
-                DefaultVertexFormat.POSITION_COLOR_TEX,
+                DefaultVertexFormat.POSITION_TEX_COLOR,
                 VertexFormat.Mode.QUADS,
                 1024,
                 false,
                 false,
                 RenderType.CompositeState.builder()
                         .setShaderState(new ShaderStateShard(
-                                GameRenderer::getPositionColorTexShader))
+                                GameRenderer::getPositionTexColorShader))
                         .setTextureState(new ClampedTextureShard(texture))
                         .setTransparencyState(LIGHTNING_TRANSPARENCY)
                         .setDepthTestState(LEQUAL_DEPTH_TEST)

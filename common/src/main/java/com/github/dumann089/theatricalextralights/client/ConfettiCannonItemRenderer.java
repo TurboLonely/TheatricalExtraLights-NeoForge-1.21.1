@@ -38,7 +38,7 @@ public class ConfettiCannonItemRenderer extends BlockEntityWithoutLevelRenderer 
                 buffer.getBuffer(RenderType.entityCutoutNoCull(ConfettiCannonRenderer.TEXTURE)),
                 packedLight,
                 packedOverlay,
-                1.0F, 1.0F, 1.0F, 1.0F
+                0xFFFFFFFF
         );
         poseStack.popPose();
     }

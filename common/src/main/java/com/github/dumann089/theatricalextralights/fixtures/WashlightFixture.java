@@ -28,9 +28,9 @@ public class WashlightFixture extends Fixture {
                     .addSlot(SharedSlots.TILT)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_base");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/washlight/washlight_base");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.812F, .490F};
     private final float[] panRotation = new float[]{0.5F, 0.181F, .493F};

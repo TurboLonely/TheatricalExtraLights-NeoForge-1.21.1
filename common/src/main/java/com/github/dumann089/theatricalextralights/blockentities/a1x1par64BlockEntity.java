@@ -5,6 +5,7 @@ import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.api.dmx.DMXPersonality;
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -115,14 +116,14 @@ public class a1x1par64BlockEntity extends ExtraLightsLightBlockEntity implements
 
     // ─── NBT ──────────────────────────────────────────────────────────────────
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("activePersonality", activePersonalityIndex);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
 
         if (tag.contains("activePersonality")) {
             activePersonalityIndex = tag.getInt("activePersonality");
@@ -132,8 +133,8 @@ public class a1x1par64BlockEntity extends ExtraLightsLightBlockEntity implements
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         return tag;
     }

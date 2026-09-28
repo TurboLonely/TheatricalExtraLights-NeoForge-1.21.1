@@ -27,9 +27,9 @@ public class VL6000Fixture extends Fixture {
                     .addSlot(SharedSlots.TILT)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/vl6000/vl6000_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.81F, .5F};
     private final float[] panRotation = new float[]{0.5F, 0.175F, .5F};

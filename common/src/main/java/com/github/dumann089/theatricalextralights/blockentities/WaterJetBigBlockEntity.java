@@ -7,6 +7,7 @@ import com.github.dumann089.theatricalextralights.client.particle.WaterJetPartic
 import com.github.dumann089.theatricalextralights.fixtures.Fixtures;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -125,22 +126,22 @@ public class WaterJetBigBlockEntity extends ExtraLightsLightBlockEntity
     // NBT
     // -------------------
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putFloat("JetHeight", jetHeight);
         tag.putFloat("JetThickness", jetThickness);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("JetHeight")) jetHeight = tag.getFloat("JetHeight");
         if (tag.contains("JetThickness")) jetThickness = tag.getFloat("JetThickness");
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putFloat("JetHeight", jetHeight);
         tag.putFloat("JetThickness", jetThickness);
         return tag;

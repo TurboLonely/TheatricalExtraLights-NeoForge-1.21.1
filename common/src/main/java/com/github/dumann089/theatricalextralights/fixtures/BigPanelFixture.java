@@ -24,9 +24,9 @@ public class BigPanelFixture extends Fixture {
                     .addSlot(SharedSlots.BLUE)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_body");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_body");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/bigpanel3x3/bigpanel_static");
 
     private final float[] tiltRotation = new float[]{0.5F, .5F, 1.25F};
     private final float[] panRotation = new float[]{0.5F, 0.5F, .5F};

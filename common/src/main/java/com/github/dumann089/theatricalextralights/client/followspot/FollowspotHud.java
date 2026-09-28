@@ -3,6 +3,7 @@ package com.github.dumann089.theatricalextralights.client.followspot;
 import com.github.dumann089.theatricalextralights.blockentities.FollowspotConsoleBlockEntity;
 import com.github.dumann089.theatricalextralights.client.gui.TelUi;
 import dev.imabad.theatrical.blockentities.light.BaseLightBlockEntity;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -24,7 +25,7 @@ public final class FollowspotHud {
     private FollowspotHud() {
     }
 
-    public static void render(GuiGraphics g, float partialTick) {
+    public static void render(GuiGraphics g, DeltaTracker deltaTracker) {
         FollowspotFixtureCameraSession session = FollowspotFixtureCameraSession.getActive();
         if (session == null) {
             return;

@@ -6,7 +6,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.utils.Env;
 import dev.architectury.utils.EnvExecutor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import io.netty.buffer.Unpooled;
@@ -19,14 +19,21 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ModNetworking {
-    public static final ResourceLocation UPLOAD_GOBO = new ResourceLocation("theatricalextralights", "upload_gobo");
-    public static final ResourceLocation REQUEST_GOBO = new ResourceLocation("theatricalextralights", "request_gobo");
-    public static final ResourceLocation SEND_GOBO = new ResourceLocation("theatricalextralights", "send_gobo");
-    public static final ResourceLocation SYNC_MAPPINGS = new ResourceLocation("theatricalextralights", "sync_mappings");
+    public static final ResourceLocation UPLOAD_GOBO = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "upload_gobo");
+    public static final ResourceLocation REQUEST_GOBO = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "request_gobo");
+    public static final ResourceLocation SEND_GOBO = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "send_gobo");
+    public static final ResourceLocation SYNC_MAPPINGS = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "sync_mappings");
 
     private static final Map<UUID, Map<String, byte[][]>> uploadBuffers = new HashMap<>();
 
+    private static boolean registered = false;
+
     public static void register() {
+        // register() is called from both the common and the client initializer; guard against
+        // registering the same payload ids twice, which NeoForge rejects.
+        if (registered) return;
+        registered = true;
+
         LifecycleEvent.SERVER_STARTED.register(server -> GlobalGoboManager.load(server));
         PlayerEvent.PLAYER_JOIN.register(player -> sendMappingsToPlayer((ServerPlayer) player));
 
@@ -92,7 +99,7 @@ public class ModNetworking {
                         int length = Math.min(chunkSize, data.length - start);
                         byte[] chunk = new byte[length];
                         System.arraycopy(data, start, chunk, 0, length);
-                        FriendlyByteBuf outBuf = new FriendlyByteBuf(Unpooled.buffer());
+                        RegistryFriendlyByteBuf outBuf = new RegistryFriendlyByteBuf(Unpooled.buffer(), server.registryAccess());
                         outBuf.writeUtf(fileName);
                         outBuf.writeInt(totalChunks);
                         outBuf.writeInt(i);
@@ -137,13 +144,13 @@ public class ModNetworking {
 
     private static void syncMappingsToAll(MinecraftServer server) {
         if (server == null) return;
-        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+        RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), server.registryAccess());
         buf.writeUtf(new Gson().toJson(GlobalGoboManager.getAllMappings()));
         NetworkManager.sendToPlayers(server.getPlayerList().getPlayers(), SYNC_MAPPINGS, buf);
     }
 
     private static void sendMappingsToPlayer(ServerPlayer player) {
-        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+        RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), player.getServer().registryAccess());
         buf.writeUtf(new Gson().toJson(GlobalGoboManager.getAllMappings()));
         NetworkManager.sendToPlayer(player, SYNC_MAPPINGS, buf);
     }

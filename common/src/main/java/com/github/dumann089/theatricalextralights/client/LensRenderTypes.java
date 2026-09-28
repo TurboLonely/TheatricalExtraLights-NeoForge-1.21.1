@@ -21,7 +21,7 @@ public class LensRenderTypes {
                             GameRenderer::getPositionColorTexLightmapShader // shader con lightmap
                     ))
                     .setTextureState(new RenderStateShard.TextureStateShard(
-                            new ResourceLocation("theatricalextralights", "textures/misc/lens.png"),
+                            ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/misc/lens.png"),
                             false,
                             false
                     ))
@@ -43,7 +43,7 @@ public class LensRenderTypes {
                             GameRenderer::getPositionColorTexLightmapShader // shader con lightmap
                     ))
                     .setTextureState(new RenderStateShard.TextureStateShard(
-                            new ResourceLocation("theatricalextralights", "textures/particle/firework_core.png"),
+                            ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/particle/firework_core.png"),
                             false,
                             false
                     ))

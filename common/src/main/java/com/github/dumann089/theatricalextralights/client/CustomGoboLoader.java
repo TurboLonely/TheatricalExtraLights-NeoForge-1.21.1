@@ -7,7 +7,7 @@ import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.ByteArrayInputStream;
@@ -66,9 +66,10 @@ public class CustomGoboLoader {
 
         if (!REQUESTED_GOBOS.contains(fileName)) {
 
-            FriendlyByteBuf buf =
-                    new FriendlyByteBuf(
-                            Unpooled.buffer()
+            RegistryFriendlyByteBuf buf =
+                    new RegistryFriendlyByteBuf(
+                            Unpooled.buffer(),
+                            Minecraft.getInstance().level.registryAccess()
                     );
 
             buf.writeUtf(fileName);
@@ -162,7 +163,7 @@ public class CustomGoboLoader {
                         );
 
         ResourceLocation rl =
-                new ResourceLocation(
+                ResourceLocation.fromNamespaceAndPath(
                         "theatricalextralights",
                         "custom_gobo_" + cleanName
                 );

@@ -298,7 +298,8 @@ public class LedFacadeScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        double delta = scrollY;
         if (inCanvas(mouseX, mouseY) && delta != 0) {
             float cp = cellPx();
             int cursorCol = panCol + (int) ((mouseX - canvasX) / cp);
@@ -316,7 +317,7 @@ public class LedFacadeScreen extends Screen {
             clampView();
             return true;
         }
-        return super.mouseScrolled(mouseX, mouseY, delta);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     @Override
@@ -350,7 +351,7 @@ public class LedFacadeScreen extends Screen {
 
     @Override
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        renderBackground(g);
+        renderBackground(g, mouseX, mouseY, partialTick);
 
         g.fill(panelLeft - 2, panelTop - 2, panelLeft + panelWidth + 2, panelTop + panelHeight + 2, COLOR_PANEL_BORDER);
         g.fill(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, COLOR_PANEL_BG);

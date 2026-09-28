@@ -1,5 +1,6 @@
 package com.github.dumann089.theatricalextralights.blocks.rig;
 
+import com.mojang.serialization.MapCodec;
 import dev.imabad.theatrical.api.FixtureProvider;
 import dev.imabad.theatrical.api.HangType;
 import dev.imabad.theatrical.api.Support;
@@ -9,7 +10,7 @@ import dev.imabad.theatrical.blocks.light.BaseLightBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -38,6 +39,8 @@ import java.util.List;
 
 public class TrussBlock extends DirectionalBlock implements Support {
 
+    private static final MapCodec<TrussBlock> CODEC = simpleCodec(properties -> new TrussBlock());
+
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     private final VoxelShape Z_BOX = Shapes.create(new AABB(0.1875, 0.0, 0, 0.8125, 1.0, 1));
@@ -63,6 +66,11 @@ public class TrussBlock extends DirectionalBlock implements Support {
                 .mapColor(MapColor.METAL)
                 .sound(SoundType.METAL));
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -131,7 +139,7 @@ public class TrussBlock extends DirectionalBlock implements Support {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if(!player.getItemInHand(hand).isEmpty()){
             Item item = player.getItemInHand(hand).getItem();
             if (item instanceof BlockItem blockItem) {
@@ -145,7 +153,7 @@ public class TrussBlock extends DirectionalBlock implements Support {
                         offset = pos.relative(Direction.DOWN);
                     }
                     if(!level.getBlockState(offset).isAir()){
-                        return InteractionResult.FAIL;
+                        return ItemInteractionResult.FAIL;
                     }
                     Direction hangDirection = Direction.UP;
                     if(state.getValue(FACING).getAxis() == Direction.Axis.Y){
@@ -163,10 +171,10 @@ public class TrussBlock extends DirectionalBlock implements Support {
                         player.getItemInHand(hand).shrink(1);
                     }
                     hangableBlock.setPlacedBy(level, offset, hanglableBlockState, player, player.getItemInHand(hand));
-                    return InteractionResult.CONSUME;
+                    return ItemInteractionResult.CONSUME;
                 }
             }
         }
-        return super.use(state, level, pos, player, hand, hit);
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ConfettiCannonRenderer extends ExtraLightsRenderer<ConfettiCannonBlockEntity> {
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "textures/block/confetti_cannon.png");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "textures/block/confetti_cannon.png");
 
     private final ConfettiCannonModel model;
 
@@ -44,7 +44,7 @@ public class ConfettiCannonRenderer extends ExtraLightsRenderer<ConfettiCannonBl
                             Direction facing, float partialTicks, boolean isFlipped, BlockState blockState,
                             boolean isHanging, int packedLight, int packedOverlay) {
         ConfettiCannonRenderTransforms.applyRenderingTransforms(poseStack, blockState, blockEntity);
-        model.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        model.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, 0xFFFFFFFF);
     }
 
     @Override

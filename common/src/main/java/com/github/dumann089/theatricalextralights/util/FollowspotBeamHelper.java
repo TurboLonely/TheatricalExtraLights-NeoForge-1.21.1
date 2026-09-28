@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -161,7 +162,7 @@ public final class FollowspotBeamHelper {
         double maxReach = fixture.getFixture().getLightRadius() * 6.0;
         Vec3 end = origin.add(direction.scale(maxReach));
         BlockHitResult hit = fixture.getLevel().clip(new ClipContext(
-                origin, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+                origin, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
         if (hit.getType() == HitResult.Type.BLOCK) {
             return (float) Math.max(origin.distanceTo(hit.getLocation()), 1.0);
         }

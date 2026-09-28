@@ -8,12 +8,14 @@ import dev.imabad.theatrical.blocks.Blocks;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -33,6 +35,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.LevelReader;
 
 public class Flow2JetBlock extends ExtraLightsLightBlock {
 
@@ -61,10 +64,10 @@ public class Flow2JetBlock extends ExtraLightsLightBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         if (state.getValue(HANGING)) {
-            stack.getOrCreateTag().put("BlockStateTag", NbtUtils.writeBlockState(state));
+            CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.put("BlockStateTag", NbtUtils.writeBlockState(state)));
         }
         return stack;
     }
@@ -129,10 +132,10 @@ public class Flow2JetBlock extends ExtraLightsLightBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        InteractionResult base = super.use(state, level, pos, player, hand, hit);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemInteractionResult base = super.useItemOn(stack, state, level, pos, player, hand, hit);
         // Wrench / config card handled by ExtraLightsLightBlock — do not open pan/tilt over them.
-        if (base != InteractionResult.PASS) {
+        if (base != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
             return base;
         }
         // TheatricalClient is client-only — never touch it on the dedicated server.
@@ -140,13 +143,13 @@ public class Flow2JetBlock extends ExtraLightsLightBlock {
             if (player.isCrouching()) {
                 Flow2JetClientEffects.toggleDebugOverlay(pos);
             }
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
         if (!player.isCrouching()) {
             new OpenExtraLightsScreenPacket(pos, TheatricalExtraLightsScreens.CHANNEL_PANTILT)
                     .sendTo((ServerPlayer) player);
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

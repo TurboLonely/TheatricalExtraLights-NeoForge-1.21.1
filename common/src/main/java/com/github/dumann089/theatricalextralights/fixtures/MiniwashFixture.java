@@ -28,9 +28,9 @@ public class MiniwashFixture extends Fixture {
                     .addSlot(SharedSlots.TILT)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_base");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/miniwash/miniwash_base");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.506F, .495F};
     private final float[] panRotation = new float[]{0.5F, 0.191F, 0.5F};

@@ -1,60 +1,39 @@
 package com.github.dumann089.theatricalextralights.client.particle;
 
 import com.github.dumann089.theatricalextralights.particle.ModParticle;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class FireworkSparkParticleOptions implements ParticleOptions {
-    public static final Codec<FireworkSparkParticleOptions> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.FLOAT.fieldOf("red").forGetter(o -> o.red),
-            Codec.FLOAT.fieldOf("green").forGetter(o -> o.green),
-            Codec.FLOAT.fieldOf("blue").forGetter(o -> o.blue),
-            Codec.FLOAT.fieldOf("scale").forGetter(o -> o.scale),
-            Codec.FLOAT.optionalFieldOf("alpha", 0.95f).forGetter(o -> o.alpha),
-            Codec.INT.fieldOf("lifetime").forGetter(o -> o.lifetime),
-            Codec.FLOAT.fieldOf("gravity").forGetter(o -> o.gravity),
-            Codec.BOOL.optionalFieldOf("trail", false).forGetter(o -> o.trail),
-            Codec.BOOL.optionalFieldOf("strobe", false).forGetter(o -> o.strobe)
+    public static final MapCodec<FireworkSparkParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            com.mojang.serialization.Codec.FLOAT.fieldOf("red").forGetter(o -> o.red),
+            com.mojang.serialization.Codec.FLOAT.fieldOf("green").forGetter(o -> o.green),
+            com.mojang.serialization.Codec.FLOAT.fieldOf("blue").forGetter(o -> o.blue),
+            com.mojang.serialization.Codec.FLOAT.fieldOf("scale").forGetter(o -> o.scale),
+            com.mojang.serialization.Codec.FLOAT.optionalFieldOf("alpha", 0.95f).forGetter(o -> o.alpha),
+            com.mojang.serialization.Codec.INT.fieldOf("lifetime").forGetter(o -> o.lifetime),
+            com.mojang.serialization.Codec.FLOAT.fieldOf("gravity").forGetter(o -> o.gravity),
+            com.mojang.serialization.Codec.BOOL.optionalFieldOf("trail", false).forGetter(o -> o.trail),
+            com.mojang.serialization.Codec.BOOL.optionalFieldOf("strobe", false).forGetter(o -> o.strobe)
     ).apply(instance, FireworkSparkParticleOptions::new));
 
-    public static final Deserializer<FireworkSparkParticleOptions> DESERIALIZER = new Deserializer<>() {
-        @Override
-        public FireworkSparkParticleOptions fromCommand(ParticleType<FireworkSparkParticleOptions> type, StringReader reader) throws CommandSyntaxException {
-            reader.expect(' ');
-            float red = reader.readFloat();
-            reader.expect(' ');
-            float green = reader.readFloat();
-            reader.expect(' ');
-            float blue = reader.readFloat();
-            reader.expect(' ');
-            float scale = reader.readFloat();
-            reader.expect(' ');
-            float alpha = reader.readFloat();
-            reader.expect(' ');
-            int lifetime = reader.readInt();
-            reader.expect(' ');
-            float gravity = reader.readFloat();
-            boolean trail = false;
-            boolean strobe = false;
-            if (reader.canRead()) {
-                reader.expect(' ');
-                trail = reader.readBoolean();
-            }
-            if (reader.canRead()) {
-                reader.expect(' ');
-                strobe = reader.readBoolean();
-            }
-            return new FireworkSparkParticleOptions(red, green, blue, scale, alpha, lifetime, gravity, trail, strobe);
-        }
-
-        @Override
-        public FireworkSparkParticleOptions fromNetwork(ParticleType<FireworkSparkParticleOptions> type, FriendlyByteBuf buf) {
-            return new FireworkSparkParticleOptions(
+    public static final StreamCodec<RegistryFriendlyByteBuf, FireworkSparkParticleOptions> STREAM_CODEC = StreamCodec.of(
+            (buf, value) -> {
+                buf.writeFloat(value.red);
+                buf.writeFloat(value.green);
+                buf.writeFloat(value.blue);
+                buf.writeFloat(value.scale);
+                buf.writeFloat(value.alpha);
+                buf.writeInt(value.lifetime);
+                buf.writeFloat(value.gravity);
+                buf.writeBoolean(value.trail);
+                buf.writeBoolean(value.strobe);
+            },
+            buf -> new FireworkSparkParticleOptions(
                     buf.readFloat(),
                     buf.readFloat(),
                     buf.readFloat(),
@@ -64,9 +43,8 @@ public class FireworkSparkParticleOptions implements ParticleOptions {
                     buf.readFloat(),
                     buf.readBoolean(),
                     buf.readBoolean()
-            );
-        }
-    };
+            )
+    );
 
     public final float red;
     public final float green;
@@ -95,20 +73,6 @@ public class FireworkSparkParticleOptions implements ParticleOptions {
         return ModParticle.FIREWORK_SPARK.get();
     }
 
-    @Override
-    public void writeToNetwork(FriendlyByteBuf buf) {
-        buf.writeFloat(red);
-        buf.writeFloat(green);
-        buf.writeFloat(blue);
-        buf.writeFloat(scale);
-        buf.writeFloat(alpha);
-        buf.writeInt(lifetime);
-        buf.writeFloat(gravity);
-        buf.writeBoolean(trail);
-        buf.writeBoolean(strobe);
-    }
-
-    @Override
     public String writeToString() {
         return red + " " + green + " " + blue + " " + scale + " " + alpha + " " + lifetime + " " + gravity + " " + trail + " " + strobe;
     }

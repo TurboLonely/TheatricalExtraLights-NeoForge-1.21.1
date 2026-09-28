@@ -22,6 +22,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -203,9 +204,9 @@ public class FireworkRocketEntity extends Entity implements EntitySpawnExtension
     }
 
     @Override
-    protected void defineSynchedData() {
-        entityData.define(DATA_EXPLODED, false);
-        entityData.define(DATA_FADING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_EXPLODED, false);
+        builder.define(DATA_FADING, false);
     }
 
     @Override
@@ -406,14 +407,10 @@ public class FireworkRocketEntity extends Entity implements EntitySpawnExtension
     }
 
     @Override
-    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps, boolean teleport) {
-        if (level().isClientSide) {
-            if (teleport) {
-                setPos(x, y, z);
-            }
-            return;
+    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps) {
+        if (!level().isClientSide) {
+            super.lerpTo(x, y, z, yRot, xRot, steps);
         }
-        super.lerpTo(x, y, z, yRot, xRot, steps, teleport);
     }
 
     private void syncVisualPhaseFromNetwork(BurstPattern pattern) {
@@ -517,8 +514,8 @@ public class FireworkRocketEntity extends Entity implements EntitySpawnExtension
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkManager.createAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
+        return NetworkManager.createAddEntityPacket(this, serverEntity);
     }
 
     @Override

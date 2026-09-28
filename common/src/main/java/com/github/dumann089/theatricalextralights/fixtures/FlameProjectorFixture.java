@@ -24,8 +24,8 @@ public class FlameProjectorFixture extends Fixture {
     private final float[] pivot = new float[]{0.5f, 0.5f, 0.5f};
 
     public FlameProjectorFixture() {
-        this.staticModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flame_projector_static");
-        this.panModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flame_projector_static");
+        this.staticModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flame_projector_static");
+        this.panModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flame_projector_static");
     }
 
     @Override

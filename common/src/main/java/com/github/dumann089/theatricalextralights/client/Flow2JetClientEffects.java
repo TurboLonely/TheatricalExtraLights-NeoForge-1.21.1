@@ -64,7 +64,7 @@ public final class Flow2JetClientEffects {
             return;
         }
 
-        float partial = minecraft.getFrameTime();
+        float partial = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
         float pan = blockEntity.getInterpolatedPan(partial);
         float userTilt = blockEntity.getInterpolatedTilt(partial);
         float[] beamStart = blockEntity.getFixture().getBeamStartPosition();

@@ -21,9 +21,9 @@ public class x8par_orangeFixture extends Fixture {
                     .addSlot(SharedSlots.INTENSITY)
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_orange_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_basepan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_orange_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_basepan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/x8par64/x8par64_static");
 
     private final float[] tiltRotation = new float[]{0.5F, .625F, .5F};
     private final float[] panRotation = new float[]{0.5F, 1.04F, 0.5F};

@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 public class FireworkRocketRenderer extends EntityRenderer<FireworkRocketEntity> {
-    private static final ResourceLocation LENS_TEXTURE = new ResourceLocation("theatricalextralights", "textures/particle/firework_core.png");
+    private static final ResourceLocation LENS_TEXTURE = ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/particle/firework_core.png");
 
     public FireworkRocketRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -212,10 +212,10 @@ public class FireworkRocketRenderer extends EntityRenderer<FireworkRocketEntity>
             float x, float y, float z,
             float u, float v
     ) {
-        vc.vertex(m, x, y, z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .uv2(LightTexture.FULL_BRIGHT)
-                .endVertex();
+        vc.addVertex(m, x, y, z)
+                .setColor(r, g, b, a)
+                .setUv(u, v)
+                .setLight(LightTexture.FULL_BRIGHT)
+                ;
     }
 }

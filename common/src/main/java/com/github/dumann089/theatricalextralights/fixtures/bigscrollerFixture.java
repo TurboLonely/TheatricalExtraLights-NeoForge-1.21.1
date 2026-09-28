@@ -25,9 +25,9 @@ public class bigscrollerFixture extends Fixture {
 
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_whole");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_static");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_whole");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_static");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/scrollers/bigscrollers/bigscroller_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.5F, .5F};
     private final float[] panRotation = new float[]{0.5F, 0.5F, 0.5F};

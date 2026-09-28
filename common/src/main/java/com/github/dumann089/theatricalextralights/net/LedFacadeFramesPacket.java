@@ -5,7 +5,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseS2CMessage;
 import dev.architectury.networking.simple.MessageType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 /**
  * S2C : diffuse les trames DMX brutes (512 o par univers couvert) d'une façade LED aux clients
@@ -24,7 +24,7 @@ public class LedFacadeFramesPacket extends BaseS2CMessage {
         this.frames = frames;
     }
 
-    public LedFacadeFramesPacket(FriendlyByteBuf buf) {
+    public LedFacadeFramesPacket(RegistryFriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
         int n = buf.readVarInt();
         this.offsets = new int[n];
@@ -41,7 +41,7 @@ public class LedFacadeFramesPacket extends BaseS2CMessage {
     }
 
     @Override
-    public void write(FriendlyByteBuf buf) {
+    public void write(RegistryFriendlyByteBuf buf) {
         buf.writeBlockPos(pos);
         buf.writeVarInt(offsets.length);
         for (int i = 0; i < offsets.length; i++) {

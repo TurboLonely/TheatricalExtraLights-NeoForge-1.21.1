@@ -9,6 +9,7 @@ import com.github.dumann089.theatricalextralights.util.DmxShutterStrobeHelper;
 import com.github.dumann089.theatricalextralights.util.DmxStrobeFixture;
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.api.dmx.DMXPersonality;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -341,8 +342,8 @@ public class AtomictiltBlockEntity extends ExtraLightsLightBlockEntity
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putInt("strobe", strobe);
         tag.putInt("rawTiltDmx", rawTiltDmx);
@@ -350,8 +351,8 @@ public class AtomictiltBlockEntity extends ExtraLightsLightBlockEntity
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putInt("strobe", strobe);
         tag.putInt("rawTiltDmx", rawTiltDmx);

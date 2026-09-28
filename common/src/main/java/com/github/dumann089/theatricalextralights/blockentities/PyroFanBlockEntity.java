@@ -10,6 +10,7 @@ import com.github.dumann089.theatricalextralights.firework.FireworkRocketTracker
 import dev.imabad.theatrical.api.Fixture;
 import dev.imabad.theatrical.api.dmx.DMXPersonality;
 import dev.imabad.theatrical.blocks.light.BaseLightBlock;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -353,8 +354,8 @@ public class PyroFanBlockEntity extends ExtraLightsLightBlockEntity implements H
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putIntArray("TubeIntensity", tubeIntensity);
         tag.putIntArray("PrevTubeIntensity", prevTubeIntensity);
@@ -363,8 +364,8 @@ public class PyroFanBlockEntity extends ExtraLightsLightBlockEntity implements H
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("activePersonality")) {
             setActivePersonality(tag.getInt("activePersonality"));
         } else {
@@ -417,8 +418,8 @@ public class PyroFanBlockEntity extends ExtraLightsLightBlockEntity implements H
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         return tag;
     }

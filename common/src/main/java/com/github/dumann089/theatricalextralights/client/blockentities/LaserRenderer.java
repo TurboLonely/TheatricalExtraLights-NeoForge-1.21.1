@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -308,7 +309,7 @@ public class LaserRenderer extends ExtraLightsRenderer<LaserBlockEntity> {
         int safety = 24;
         while (safety-- > 0) {
             BlockHitResult hit = be.getLevel().clip(new ClipContext(rayStart, endWorld,
-                    ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+                    ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
             if (hit.getType() == HitResult.Type.MISS) {
                 return maxLen;
             }

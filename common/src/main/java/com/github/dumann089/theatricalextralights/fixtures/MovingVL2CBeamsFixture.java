@@ -31,9 +31,9 @@ public class MovingVL2CBeamsFixture extends Fixture {
             ProfileHeadChannels.PERSONALITY_PROFILE
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/moving_vl2c/moving_vl2c_static");
 
     private final float[] tiltRotation = new float[]{0.5F, 0.78125F, .5F};
     private final float[] panRotation = new float[]{0.5F, 0.75F, .5F};

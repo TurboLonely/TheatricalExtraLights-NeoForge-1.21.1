@@ -136,7 +136,7 @@ public enum GoboLibrary {
     public record GoboEntry(ResourceLocation texture, FakeVolumetricBeamPattern pattern) {
         public GoboEntry(String path, FakeVolumetricBeamPattern pattern) {
             this(
-                    new ResourceLocation("theatricalextralights", "textures/gobos/" + path + ".png"),
+                    ResourceLocation.fromNamespaceAndPath("theatricalextralights", "textures/gobos/" + path + ".png"),
                     pattern
             );
         }

@@ -6,6 +6,7 @@ import com.github.dumann089.theatricalextralights.util.DmxShutterStrobeHelper;
 import com.github.dumann089.theatricalextralights.util.DmxStrobeFixture;
 import com.github.dumann089.theatricalextralights.client.StrobeRenderHelper;
 import dev.imabad.theatrical.api.dmx.DMXPersonality;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -199,15 +200,15 @@ public abstract class BlinderBaseBlockEntity extends ExtraLightsLightBlockEntity
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putInt("strobe", strobe);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("activePersonality")) {
             activePersonalityIndex = tag.getInt("activePersonality");
             setChannelCount(getPersonalityChannelCount());
@@ -223,8 +224,8 @@ public abstract class BlinderBaseBlockEntity extends ExtraLightsLightBlockEntity
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
         tag.putInt("activePersonality", activePersonalityIndex);
         tag.putInt("strobe", strobe);
         return tag;

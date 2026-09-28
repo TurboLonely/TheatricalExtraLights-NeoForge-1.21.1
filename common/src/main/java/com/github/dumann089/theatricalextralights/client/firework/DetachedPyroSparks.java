@@ -253,9 +253,9 @@ public final class DetachedPyroSparks {
         int g = (color >> 8) & 0xFF;
         int b = color & 0xFF;
         int a = Math.max(0, Math.min(255, (int) (alpha * 255.0f)));
-        consumer.vertex(matrix, -size, size, 0.0f).color(r, g, b, a).uv(0.0f, 0.0f).uv2(LightTexture.FULL_BRIGHT).endVertex();
-        consumer.vertex(matrix, size, size, 0.0f).color(r, g, b, a).uv(1.0f, 0.0f).uv2(LightTexture.FULL_BRIGHT).endVertex();
-        consumer.vertex(matrix, size, -size, 0.0f).color(r, g, b, a).uv(1.0f, 1.0f).uv2(LightTexture.FULL_BRIGHT).endVertex();
-        consumer.vertex(matrix, -size, -size, 0.0f).color(r, g, b, a).uv(0.0f, 1.0f).uv2(LightTexture.FULL_BRIGHT).endVertex();
+        consumer.addVertex(matrix, -size, size, 0.0f).setColor(r, g, b, a).setUv(0.0f, 0.0f).setLight(LightTexture.FULL_BRIGHT);
+        consumer.addVertex(matrix, size, size, 0.0f).setColor(r, g, b, a).setUv(1.0f, 0.0f).setLight(LightTexture.FULL_BRIGHT);
+        consumer.addVertex(matrix, size, -size, 0.0f).setColor(r, g, b, a).setUv(1.0f, 1.0f).setLight(LightTexture.FULL_BRIGHT);
+        consumer.addVertex(matrix, -size, -size, 0.0f).setColor(r, g, b, a).setUv(0.0f, 1.0f).setLight(LightTexture.FULL_BRIGHT);
     }
 }

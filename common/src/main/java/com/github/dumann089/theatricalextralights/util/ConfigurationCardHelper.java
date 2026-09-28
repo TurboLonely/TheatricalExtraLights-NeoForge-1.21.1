@@ -1,7 +1,7 @@
 package com.github.dumann089.theatricalextralights.util;
 
 import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import dev.imabad.theatrical.items.ConfigurationCardData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -30,7 +30,8 @@ public final class ConfigurationCardHelper {
             boolean autoIncrement,
             int nextUniverse,
             int nextAddress,
-            boolean nextAddressWrapped
+            boolean nextAddressWrapped,
+            ConfigurationCardData updatedData
     ) {
         public int channelEnd() {
             return appliedAddress + Math.max(channelCount, 1) - 1;
@@ -63,16 +64,18 @@ public final class ConfigurationCardHelper {
         return new DmxPatch(nextUniverse, nextAddress);
     }
 
-    public static ApplyResult applyToFixture(CompoundTag tagData, BaseDMXConsumerLightBlockEntity consumer) {
-        boolean universeFromCard = tagData.getBoolean("universeEnabled");
-        boolean addressFromCard = tagData.getBoolean("addressEnabled");
+    public static ApplyResult applyToFixture(ConfigurationCardData data, BaseDMXConsumerLightBlockEntity consumer) {
+        boolean universeFromCard = data.universeEnabled();
+        boolean addressFromCard = data.addressEnabled();
         int channelCount = consumer.getChannelCount();
 
-        int requestedUniverse = universeFromCard ? tagData.getInt("dmxUniverse") : consumer.getUniverse();
-        int requestedAddress = addressFromCard ? tagData.getInt("dmxAddress") : consumer.getChannelStart();
+        int requestedUniverse = universeFromCard ? data.dmxUniverse() : consumer.getUniverse();
+        int requestedAddress = addressFromCard ? data.dmxAddress() : consumer.getChannelStart();
         int appliedUniverse = consumer.getUniverse();
         int appliedAddress = consumer.getChannelStart();
         boolean universeWrapped = false;
+
+        ConfigurationCardData updatedData = data;
 
         if (addressFromCard) {
             DmxPatch patch = resolvePatch(requestedUniverse, requestedAddress, channelCount);
@@ -81,16 +84,15 @@ public final class ConfigurationCardHelper {
             universeWrapped = appliedUniverse != requestedUniverse || appliedAddress != requestedAddress;
             consumer.setUniverse(appliedUniverse);
             consumer.setChannelStartPoint(appliedAddress);
-            tagData.putInt("dmxUniverse", appliedUniverse);
-            tagData.putInt("dmxAddress", appliedAddress);
+            updatedData = withPatch(updatedData, appliedUniverse, appliedAddress);
         } else if (universeFromCard) {
             appliedUniverse = requestedUniverse;
             consumer.setUniverse(appliedUniverse);
         }
 
-        boolean autoIncrement = tagData.getBoolean("autoIncrement");
-        int nextUniverse = tagData.getInt("dmxUniverse");
-        int nextAddress = tagData.getInt("dmxAddress");
+        boolean autoIncrement = data.autoIncrement();
+        int nextUniverse = updatedData.dmxUniverse();
+        int nextAddress = updatedData.dmxAddress();
         boolean nextWrapped = false;
 
         if (autoIncrement) {
@@ -99,8 +101,7 @@ public final class ConfigurationCardHelper {
             nextUniverse = next.universe();
             nextAddress = next.address();
             nextWrapped = next.universe() != before.universe() || next.address() != before.address();
-            tagData.putInt("dmxUniverse", nextUniverse);
-            tagData.putInt("dmxAddress", nextAddress);
+            updatedData = withPatch(updatedData, nextUniverse, nextAddress);
         }
 
         return new ApplyResult(
@@ -114,8 +115,14 @@ public final class ConfigurationCardHelper {
                 autoIncrement,
                 nextUniverse,
                 nextAddress,
-                nextWrapped
+                nextWrapped,
+                updatedData
         );
+    }
+
+    private static ConfigurationCardData withPatch(ConfigurationCardData data, int universe, int address) {
+        return new ConfigurationCardData(data.network(), universe, address, data.autoIncrement(),
+                data.universeEnabled(), data.addressEnabled());
     }
 
     public static void sendPatchMessages(Player player, Level level, BaseDMXConsumerLightBlockEntity consumer,

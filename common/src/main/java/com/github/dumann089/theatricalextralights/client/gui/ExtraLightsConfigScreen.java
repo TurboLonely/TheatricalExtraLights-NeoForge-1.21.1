@@ -17,6 +17,7 @@ import dev.imabad.theatrical.blockentities.light.BaseDMXConsumerLightBlockEntity
 import dev.imabad.theatrical.net.UpdateDMXFixture;
 import dev.imabad.theatrical.net.UpdateNetworkId;
 import dev.imabad.theatrical.util.UUIDUtil;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -522,8 +523,8 @@ public class ExtraLightsConfigScreen extends TelScaledScreen {
         int dmxAddress = parseOrDefault(dmxAddressField, blockEntity.getChannelStart());
         int dmxUniverse = parseOrDefault(dmxUniverseField, blockEntity.getUniverse());
 
-        new UpdateDMXFixture(pos, Mth.clamp(dmxAddress, 0, 512), Math.max(0, dmxUniverse)).sendToServer();
-        new UpdateNetworkId(pos, networkIds.get(currentNetworkIndex)).sendToServer();
+        NetworkManager.sendToServer(new UpdateDMXFixture(pos, Mth.clamp(dmxAddress, 0, 512), Math.max(0, dmxUniverse)));
+        NetworkManager.sendToServer(new UpdateNetworkId(pos, networkIds.get(currentNetworkIndex)));
         sendPositionUpdate();
 
         if (hasPersonalityOptions() && blockEntity instanceof HasPersonality) {
@@ -630,7 +631,7 @@ public class ExtraLightsConfigScreen extends TelScaledScreen {
         float prismAngle = 0f;
         if (blockEntity instanceof HasGobo hg && hg.getGoboLibrary() != null) {
             prismFacets = hg.getPrismFacets();
-            prismAngle = hg.getPrismAngleDeg(minecraft != null ? minecraft.getFrameTime() : 0f);
+            prismAngle = hg.getPrismAngleDeg(minecraft != null ? minecraft.getTimer().getGameTimeDeltaPartialTick(false) : 0f);
             goboSlot = hg.getGobo();
             String custom = com.github.dumann089.theatricalextralights.util.GlobalGoboManager
                     .getCustomGobo(hg.getGoboLibrary(), goboSlot);

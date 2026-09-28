@@ -43,9 +43,9 @@ public class SharplusFixture extends Fixture {
                     .addSlot(SharedSlots.FOCUS)  // Prism Rotation
     );
 
-    private static final ResourceLocation TILT_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_tilt");
-    private static final ResourceLocation PAN_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_pan");
-    private static final ResourceLocation STATIC_MODEL = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_static");
+    private static final ResourceLocation TILT_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_tilt");
+    private static final ResourceLocation PAN_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_pan");
+    private static final ResourceLocation STATIC_MODEL = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/sharplus/sharplus_static");
 
     private final float[] tiltRotation = new float[]{0.507F, 0.804F, .507F};
     private final float[] panRotation = new float[]{0.5F, 0.143F, .5F};

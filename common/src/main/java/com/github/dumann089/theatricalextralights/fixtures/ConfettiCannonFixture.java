@@ -19,7 +19,7 @@ public class ConfettiCannonFixture extends Fixture {
     );
 
     private static final ResourceLocation STATIC_MODEL =
-            new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/confetti_cannon_static");
+            ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/confetti_cannon_static");
     private final float[] pivot = new float[]{0.5f, 0.35f, 0.5f};
 
     @Override

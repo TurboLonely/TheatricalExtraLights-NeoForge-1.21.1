@@ -29,8 +29,8 @@ public class FlameThrowerFixture extends Fixture {
     };
 
     public FlameThrowerFixture() {
-        this.bodyModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flame_thrower_body");
-        this.headModel = new ResourceLocation(TheatricalExtraLights.MOD_ID, "block/flame_thrower_head");
+        this.bodyModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flame_thrower_body");
+        this.headModel = ResourceLocation.fromNamespaceAndPath(TheatricalExtraLights.MOD_ID, "block/flame_thrower_head");
     }
 
     @Override
